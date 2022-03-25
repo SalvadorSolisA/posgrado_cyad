@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+  min-height: 200px;
+  max-height: 400px;
+}
+
+.main-content{
+  margin: 10px;
+  position: relative;
+}
+
+.table-container{
+  position: relative;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.mat-form-field {
+  width: 100%;
+  font-size: 12px;
+  background-color: white;
+}
+
+

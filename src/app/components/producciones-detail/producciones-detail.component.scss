@@ -1,0 +1,35 @@
+.card{
+    min-width: 160px;
+    max-width: 500px;
+    margin: 10px;
+}
+
+.card-header{
+    padding: 10px;
+    background-color: aqua;
+}
+
+.card-content{
+    padding-top: 10px;
+}
+
+.mat-card-title{
+    text-transform: uppercase;
+    color: black;
+}
+
+.card-icon{
+    top: 0px;
+    right: 0px;
+    padding-top: 0px;
+}
+
+.form{
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.form-field{
+    width: 100%;
+}

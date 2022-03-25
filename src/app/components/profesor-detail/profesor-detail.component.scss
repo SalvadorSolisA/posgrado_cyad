@@ -1,0 +1,30 @@
+.contenedor{
+    max-height: 700px;
+}
+
+.profesor-card {
+    height:100%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.example-header-image {
+   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+   background-size: cover;
+}
+
+.input-form{
+    width: 90%;
+}
+
+.input-full-width{
+    width: 100%;
+}
+
+.mat-card-title{
+    text-transform: uppercase;
+    color: black;
+}

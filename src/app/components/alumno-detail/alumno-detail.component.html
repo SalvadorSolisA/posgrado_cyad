@@ -1,0 +1,128 @@
+<div class="container">
+    <h1 class="mat-h1">Datos del alumno</h1>
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>
+                {{alumno.nombre}}
+                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item>Imprimir</button>
+                    <button mat-menu-item>Exportar</button>
+                </mat-menu>
+                <button mat-icon-button class="more-button2" aria-label="Toggle menu">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+            <form class="form">
+                <!--Campo matricula-->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Matricula</mat-label>
+                    <input type="text" matInput placeholder="2123032568" value="{{alumno.matricula}}">
+                    <mat-icon matPrefix>school</mat-icon>
+                </mat-form-field>
+                <!--Campo nombre-->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Nombre(s)</mat-label>
+                    <input type="text" matInput placeholder="Nombre(s)" value="{{alumno.nombre}}">
+                    <mat-icon matPrefix>person</mat-icon>
+                </mat-form-field>
+
+                <!--Campo apellido paterno-->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Apellido paterno</mat-label>
+                    <input type="text" matInput placeholder="Apellido paterno" value="{{alumno.ap_paterno}}">
+                    <mat-icon matPrefix>person</mat-icon>
+                </mat-form-field>
+
+                <!--Campo apellido materno-->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Apeliido materno</mat-label>
+                    <input type="text" matInput placeholder="Apellido materno" value="{{alumno.ap_materno}}">
+                    <mat-icon matPrefix>person</mat-icon>
+                </mat-form-field>
+                <div class="container-form-short">
+                    <!--Campo genero-->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Genero</mat-label>
+                        <mat-select value="{{alumno.genero}}">
+                            <mat-option value="F">F</mat-option>
+                            <mat-option value="M">M</mat-option>
+                            <mat-option value="X">X</mat-option>
+                        </mat-select>
+                        <mat-icon matPrefix>person</mat-icon>
+                    </mat-form-field>
+                
+                    <!--Campo edad-->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Edad</mat-label>
+                        <input type="text" matInput placeholder="20" value="{{alumno.edad}}">
+                        <mat-icon matPrefix>person</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!--Campo fecha nacimiento-->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Fecha de nacimiento</mat-label>
+                    <input type="date" matInput placeholder="2022/01/10" value="{{alumno.fecha_nacimiento}}">
+                </mat-form-field>
+
+                <!--Campo nacionalidad-->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Nacionalidad</mat-label>
+                    <input type="text" matInput placeholder="Mexicana" value="{{alumno.nacionalidad}}">
+                    <mat-icon matPrefix>language</mat-icon>
+                </mat-form-field>
+
+                <!--Campo CURP-->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>CURP</mat-label>
+                    <input type="text" matInput placeholder="SASO0750909HDFNNS05" value="{{alumno.curp}}">
+                    <mat-icon matPrefix>person</mat-icon>
+                </mat-form-field>
+
+                <!--Campo RFC-->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>RFC</mat-label>
+                    <input type="text" matInput placeholder="SASO075090XXX" value="{{alumno.rfc}}">
+                    <mat-icon matPrefix>person</mat-icon>
+                </mat-form-field>
+
+                <!--Campo Telefono-->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Telefono</mat-label>
+                    <input type="tel" matInput placeholder="5555555555" value="{{alumno.curp}}">
+                    <mat-icon matPrefix>phone_android</mat-icon>
+                </mat-form-field>
+
+                <!--Campo Correo -->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Correo</mat-label>
+                    <input type="email" matInput placeholder="correo@gmail.com" value="{{alumno.correo}}">
+                    <mat-icon matPrefix>email</mat-icon>
+                </mat-form-field>
+
+                <!--Campo Orcid-->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Orcid</mat-label>
+                    <input type="text" matInput placeholder="0000 0002 6463 3216" value="{{alumno.orcid}}">
+                    <mat-icon matPrefix>school</mat-icon>
+                </mat-form-field>
+
+                <!--Campo cvu-->
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>CVU</mat-label>
+                    <input type="text" matInput placeholder="0000 0002 6463 3216" value="{{alumno.cvu}}">
+                    <mat-icon matPrefix>school</mat-icon>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button>CANCELAR</button>
+            <button mat-button color="primary">GUARDAR</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

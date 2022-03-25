@@ -1,0 +1,60 @@
+<mat-card class="card">
+  <mat-card-header class="card-header">
+    <mat-card-title>{{produccion.titulo}}</mat-card-title>
+    <mat-card-subtitle>{{produccion.titulo}}</mat-card-subtitle>
+    <button  mat-icon-button class="card-icon" aria-label="menu icon">
+      <mat-icon matSuffix>more_vert</mat-icon>
+    </button>
+  </mat-card-header>
+  <mat-card-content class="card-content">
+    <form class="form">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Clave</mat-label>
+        <input type="text" matInput placeholder="2022RD" value="{{produccion.clave_producto}}">
+        <mat-icon matPrefix>title</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Titulo</mat-label>
+        <input type="text" matInput placeholder="Titulo de la producción" value="{{produccion.titulo}}">
+        <mat-icon matPrefix>title</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Fecha de publicación</mat-label>
+        <input type="date" matInput placeholder="2022/01/10" value="{{produccion.fecha_publicacion}}">
+        <mat-icon matPrefix>calendar_today</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>LGAC</mat-label>
+        <input type="text" matInput placeholder="LGAC" value="{{produccion.lgac}}">
+        <mat-icon matPrefix>title</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo de producción</mat-label>
+        <!--
+          <mat-select [(ngModel)]="selectedValue" name="ides">
+            <mat-option *ngFor="let id of ides" [value]="id.value">
+              {{id.viewValue}}
+            </mat-option>
+          </mat-select>
+          -->
+        <input type="text" matInput placeholder="Tipo" value="{{produccion.tipo.tipo}}">
+        <mat-icon matPrefix>title</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput placeholder="Escribe una descripción breve de la producción"
+          value="{{produccion.descripcion}}"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button>CANCELAR</button>
+    <button mat-raised-button color="primary">GUARDAR CAMBIOS</button>
+  </mat-card-actions>
+</mat-card>
+  

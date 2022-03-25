@@ -1,0 +1,56 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Titulo de la produccion royecto" #input>
+            <mat-icon matPrefix>search</mat-icon>
+        </mat-form-field>
+
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <!-- Clave Producto Column -->
+                <ng-container matColumnDef="clave_producto">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> CLAVE PRODUCTO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.clave_producto}} </td>
+                </ng-container>
+
+                <!-- Titulo Column -->
+                <ng-container matColumnDef="titulo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> TITULO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
+                </ng-container>
+
+                <!-- Fecha Publicacion Column -->
+                <ng-container matColumnDef="fecha_publicacion">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA PUBLICACIÓN </th>
+                    <td mat-cell *matCellDef="let element"> {{element.fecha_publicacion}} </td>
+                </ng-container>
+
+                <!-- LGAC Column -->
+                <ng-container matColumnDef="lgac">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> LGAC </th>
+                    <td mat-cell *matCellDef="let row"> {{row.lgac}} </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row (click)="getRow(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+    </div>
+</div>

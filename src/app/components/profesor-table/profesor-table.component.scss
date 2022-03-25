@@ -1,0 +1,28 @@
+.container {
+    position: relative;
+    overflow: auto;
+    margin: 10px;
+}
+
+table{
+    width: 100%;
+    text-align: center;
+}
+
+.mat-row:hover .mat-cell {
+    background-color:aquamarine;
+}
+
+.mat-header-cell {
+    text-align: center;
+}
+
+.mat-form-field {
+    margin: 5px 0px 5px 50px;
+    font-size: 14px;
+    width: 60%;
+}
+
+.mat-paginator {
+    margin-bottom: 20px;
+}

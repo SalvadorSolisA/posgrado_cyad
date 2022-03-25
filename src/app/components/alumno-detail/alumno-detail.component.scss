@@ -1,0 +1,58 @@
+@import "../../../assets/styles/variables.scss";
+  
+  .container {
+    max-width: 410px;
+    min-width: 350px;
+    margin: 5px;
+    padding: 5px;
+  }
+
+  .card {
+    position: relative;
+  }
+  
+  .more-button{
+    position: absolute;
+    top: 5px;
+    right: 50px;
+  }
+
+  .more-button2{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+
+  .card-content {
+    position: relative;
+    top: 5px;
+  }
+
+  .form-field{
+    width: 100%;
+  }
+  
+  .container-form-short{
+    .mat-form-field{
+      width: 100px;
+      margin-left: 10px;
+    }
+  }
+
+  ::ng-deep .mat-focused  {
+    /*change color when focus*/
+
+    .mat-form-field-label{
+      color: $primary !important;
+    }
+    
+    .mat-icon{
+      color: $primary !important;
+    }
+   }
+
+  
+  /*::ng-deep.mat-form-field-ripple {*/
+   /*change color of underline when focused*/
+  /*background-color: green !important;
+  }*/

@@ -1,0 +1,7 @@
+{
+    "/democyad/*":{
+        "target":"http://localhost:9898/v1",
+        "secure":false,
+        "logLevel":"debug"
+    }
+}

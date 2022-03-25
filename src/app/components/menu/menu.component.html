@@ -1,0 +1,54 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="(isHandset$ | async) === false">
+      <mat-toolbar>Menu</mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item href="#"><mat-icon mat-list-icon>library_add</mat-icon>Registrar Proyecto</a>
+        <a mat-list-item href="#"><mat-icon mat-list-icon>library_add</mat-icon>Registrar Producción</a>
+        <a mat-list-item routerLink="alumnos"><mat-icon mat-list-icon>people</mat-icon>Alumnos</a>
+        <a mat-list-item><mat-icon mat-list-icon>people</mat-icon>Aspirantes</a>
+        <a mat-list-item routerLink="producciones"><mat-icon mat-list-icon>class</mat-icon>Producciones</a>
+        <a mat-list-item><mat-icon mat-list-icon>class</mat-icon>Proyectos</a>
+        <a mat-list-item routerLink="profesores"><mat-icon mat-list-icon>people</mat-icon>Profesores</a>
+        <mat-expansion-panel mat-list-item>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon class="icon-expansion-panel">class</mat-icon>
+              Catalogos
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!--Componentes menu-->
+          <mat-nav-list class="nav-expansion-panel">
+            <a mat-list-item routerLink="areas-concentracion">Area de Concentración</a>
+            <a mat-list-item>Area de Investigación</a>
+            <a mat-list-item>Departamentos</a>
+            <a mat-list-item>Divisiones</a>
+            <a mat-list-item>Estado Academico</a>
+            <a mat-list-item>Estado de Aspirante</a>
+            <a mat-list-item>Institucion procedencia</a>
+            <a mat-list-item>LGAC</a>
+            <a mat-list-item>Nivel</a>
+            <a mat-list-item>Plan de Estudio</a>
+          </mat-nav-list>
+        </mat-expansion-panel>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span>CyAD</span>
+      </mat-toolbar>
+      <!-- Add Content Here -->
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
