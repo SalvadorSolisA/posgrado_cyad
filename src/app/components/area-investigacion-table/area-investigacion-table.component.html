@@ -1,14 +1,14 @@
 <div class="main-content">
     <div class="header">
-        <h1>Áreas de Concentración</h1>
+        <h1>Áreas de Investigación</h1>
         <button mat-raised-button (click)="openDialog()" color="primary">
             <mat-icon>add</mat-icon>
-            Agregar área
+            Agregar
         </button>
     </div>
     <mat-form-field class="filter" appearance="standard">
         <mat-label><mat-icon matPrefix>search</mat-icon>Buscar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Area de concentración" #input>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Área de investigación" #input>
     </mat-form-field>
     <div class="mat-elevation-z8">
         <div class="table-container">
@@ -20,10 +20,20 @@
                     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                 </ng-container>
 
-                <!-- Areas de contracion Column -->
-                <ng-container matColumnDef="area">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> AREA DE CONCENTRACIÓN </th>
-                    <td mat-cell *matCellDef="let element"> {{element.area}} </td>
+                <!-- Areas de investigacion Column -->
+                <ng-container matColumnDef="area_investigacion">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ÁREA DE INVESTIGACIÓN </th>
+                    <td mat-cell *matCellDef="let element"> {{element.area_investigacion}} </td>
+                </ng-container>
+
+                <!-- Estado de investigacion Column -->
+                <ng-container matColumnDef="activo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTIVO </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="chip">
+                            {{element.activo}}
+                        </div>
+                    </td>
                 </ng-container>
 
                 <!-- Action Column -->

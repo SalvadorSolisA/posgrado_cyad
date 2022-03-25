@@ -7,13 +7,13 @@
             <mat-icon matSuffix>school</mat-icon>
         </mat-form-field>
         <mat-form-field form appearance="fill">
-            <mat-label>Area</mat-label>
-            <input formControlName="area" matInput placeholder="ÁREA DE CONCENTRACIÓN" />
+            <mat-label>Division</mat-label>
+            <input formControlName="division" matInput placeholder="DIVISION" />
             <mat-icon matSuffix>school</mat-icon>
         </mat-form-field>
     </form>
 </div>
 <div mat-dialog-actions [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
-    <button mat-raised-button color="primary" mat-dialog-close (click)="addArea()">{{actionBtn}}</button>
+    <button mat-raised-button color="primary" mat-dialog-close (click)="addDivision()">{{actionBtn}}</button>
 </div>

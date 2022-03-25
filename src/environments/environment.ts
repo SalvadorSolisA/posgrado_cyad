@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl:'/democyad/'
+  baseUrl:"http://localhost:9898/v1"
 };
 
 /*

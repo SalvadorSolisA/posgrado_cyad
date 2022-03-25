@@ -1,0 +1,60 @@
+@import "../../../assets/styles/variables.scss";
+  
+  //header
+  .header{
+    top:10px;
+  }
+
+  //titulo
+  .header h1{
+    position: relative;
+    left: 0px;
+    top: 10px;
+  }
+
+  //boton agregar
+  .header button{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+
+  .main-content{
+    margin: 10px;
+    min-width: 400px;
+    max-width: 800px;
+    position: relative;
+    left: 20%;
+  }
+  
+  .table-container{
+    position: relative;
+    overflow: auto;
+  }
+
+  table {
+    text-align: center;
+    width: 100%;
+  }
+  
+  //encabezados columna
+  ::ng-deep .mat-header-cell{
+    text-align: center !important;
+  }
+
+  //filtro
+  .filter{
+    font-size: 15px;
+    width: 100%;
+  }
+
+  .chip{
+    height: 20px;
+    width: 50px;
+    color: white;
+    background-color: $acent;
+    border-radius: 12px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+  }

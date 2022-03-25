@@ -4,6 +4,14 @@ import { Observable, retry } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Alumno } from '../interfaces/alumno';
 import { AreaConcentracion } from '../interfaces/AreaConcentracion';
+import { AreaInvestigacion } from '../interfaces/areaInvestiongacion';
+import { Departamento } from '../interfaces/departamento';
+import { Division } from '../interfaces/division';
+import { EstadoAcademico } from '../interfaces/estado-academico';
+import { EstadoAspirante } from '../interfaces/estado-aspirante';
+import { Institucion } from '../interfaces/institucion';
+import { Nivel } from '../interfaces/nivel';
+import { PlanEstudios } from '../interfaces/plan-estudios';
 import { Produccion } from '../interfaces/produccion';
 
 @Injectable({
@@ -11,8 +19,7 @@ import { Produccion } from '../interfaces/produccion';
 })
 export class CyadService {
 
-  baseUrl = "http://localhost:9898/v1"//"https://a203f053-e95a-4622-9ad4-1fb5435d9a5e.mock.pstmn.io";//environment.baseUrl;
-  url = environment.baseUrl; 
+  private baseUrl = environment.baseUrl;//"https://a203f053-e95a-4622-9ad4-1fb5435d9a5e.mock.pstmn.io";//environment.baseUrl;
 
   constructor(private http : HttpClient) { }
 
@@ -53,10 +60,202 @@ export class CyadService {
   }
 
   public putAreaConcentracion(area: AreaConcentracion){
-    return this.http.put<AreaConcentracion>(this.baseUrl+`/area-concentracionUpdate/`,area);
+    return this.http.put<AreaConcentracion>(this.baseUrl+`/area-concentracionUpdate`,area);
   }
 
-  public deleteAreaConcentracion(area: AreaConcentracion){
-    return this.http.delete<AreaConcentracion>(this.baseUrl+`/area-concentracion/?id=${area.id}`);
+  public deleteAreaConcentracion(id: number){
+    return this.http.delete<AreaConcentracion>(this.baseUrl+`/area-concentracion/?id=${id}`);
   }
+
+  //REST Area de investigacion  
+  public getAreasInvestigacion(): Observable<any>{
+    return this.http.get<AreaInvestigacion>(this.baseUrl+'/areas-investigacion');
+  }
+
+  public getAreaInvestigacionDetail(index: number){
+    return this.http.get<AreaInvestigacion>( this.baseUrl + `/area-investigacion/${index}`);
+  }
+
+  public postAreaInvestigacion(area: AreaInvestigacion){
+    return this.http.post<AreaInvestigacion>(this.baseUrl+'/area-investigacion',area);
+  }
+
+  public putAreaInvestigacion(area: AreaInvestigacion){
+    console.log("datos enviados " + area.id)
+    console.log("datos enviados " + area.area_investigacion)
+    return this.http.put<AreaInvestigacion>(this.baseUrl+`/area-investigacionUpdate/`,area);
+  }
+
+  public deleteAreaInvestigacion(id: number){
+    return this.http.delete<AreaInvestigacion>(this.baseUrl+`/area-investigacion?id=${id}`);
+  }
+
+  //REST Departamentos  
+  public getDepartamentos(): Observable<any>{
+    return this.http.get<Departamento>(this.baseUrl+'/departamentos');
+  }
+
+  public getDepartamentoDetail(index: number){
+    return this.http.get<Departamento>( this.baseUrl + `/departamento/${index}`);
+  }
+
+  public postDepartamento(depto: Departamento){
+    return this.http.post<Departamento>(this.baseUrl+'/departamento',depto);
+  }
+
+  public putDepartamento(depto: Departamento){
+    return this.http.put<Departamento>(this.baseUrl+`/departamentoUpdate/`,depto);
+  }
+
+  public deleteDepartamento(id: number){
+    return this.http.delete<Departamento>(this.baseUrl+`/departamento?id=${id}`);
+  }
+
+  //REST Divisiones  
+  public getDivisiones(): Observable<any>{
+    return this.http.get<Division>(this.baseUrl+'/divisiones');
+  }
+
+  public getDivisionDetail(index: number){
+    return this.http.get<Division>( this.baseUrl + `/division/${index}`);
+  }
+
+  public postDivision(division: Division){
+    return this.http.post<Division>(this.baseUrl+'/division',division);
+  }
+
+  public putDivision(division: Division){
+    return this.http.put<Division>(this.baseUrl+`/divisionUpdate/`,division);
+  }
+
+  public deleteDivision(id: number){
+    return this.http.delete<Division>(this.baseUrl+`/division?id=${id}`);
+  }
+
+  //REST Estado Academico  
+  public getEstadosAcademicos(): Observable<any>{
+    return this.http.get<EstadoAcademico>(this.baseUrl+'/estados');
+  }
+
+  public getEstadoAcademicoDetail(index: number){
+    return this.http.get<EstadoAcademico>( this.baseUrl + `/estado/${index}`);
+  }
+
+  public postEstadosAcademico(estado: EstadoAcademico){
+    return this.http.post<EstadoAcademico>(this.baseUrl+'/estado',estado);
+  }
+
+  public putEstadosAcademico(estado: EstadoAcademico){
+    return this.http.put<EstadoAcademico>(this.baseUrl+`/estadoUpdate/`,estado);
+  }
+
+  public deleteEstadosAcademico(id: number){
+    return this.http.delete<EstadoAcademico>(this.baseUrl+`/estado?id=${id}`);
+  }
+
+  //REST Estado Aspirante  
+  public getEstadosAspirantes(): Observable<any>{
+    return this.http.get<EstadoAspirante>(this.baseUrl+'/estados-aspirantes');
+  }
+
+  public getEstadoAspiranteDetail(index: number){
+    return this.http.get<EstadoAspirante>( this.baseUrl + `/estado-aspirante/${index}`);
+  }
+
+  public postEstadoAspirante(estado: EstadoAspirante){
+    return this.http.post<EstadoAspirante>(this.baseUrl+'/estado-aspirante',estado);
+  }
+
+  public putEstadoAspirante(estado: EstadoAspirante){
+    return this.http.put<EstadoAspirante>(this.baseUrl+`/estado-aspiranteUpdate/`,estado);
+  }
+
+  public deleteEstadoAspirante(id: number){
+    return this.http.delete<EstadoAspirante>(this.baseUrl+`/estado-aspirante?id=${id}`);
+  }
+
+  //REST Insituciones procedencia  
+  public getInstituciones(): Observable<any>{
+    return this.http.get<Institucion>(this.baseUrl+'/instituciones');
+  }
+
+  public getInstitucionDetail(index: number){
+    return this.http.get<Institucion>( this.baseUrl + `/institucion/${index}`);
+  }
+
+  public postInstitucion(inst: Institucion){
+    return this.http.post<Institucion>(this.baseUrl+'/institucion',inst);
+  }
+
+  public putInstitucion(inst: Institucion){
+    return this.http.put<Institucion>(this.baseUrl+`/institucionUpdate/`,inst);
+  }
+
+  public deleteInstitucion(id: number){
+    return this.http.delete<Institucion>(this.baseUrl+`/institucion?id=${id}`);
+  }
+
+  //REST LGAC  
+  public getLGAC(): Observable<any> {
+    return this.http.get<Institucion>(this.baseUrl + '/instituciones');
+  }
+
+  public getLGACDetail(index: number) {
+    return this.http.get<Institucion>(this.baseUrl + `/institucion/${index}`);
+  }
+
+  public postLGAC(inst: Institucion) {
+    return this.http.post<Institucion>(this.baseUrl + '/institucion', inst);
+  }
+
+  public putLGAC(inst: Institucion) {
+    return this.http.put<Institucion>(this.baseUrl + `/institucionUpdate/`, inst);
+  }
+
+  public deleteLGAC(id: number) {
+    return this.http.delete<Institucion>(this.baseUrl + `/institucion?id=${id}`);
+  }
+
+  //REST Nivel  
+  public getNiveles(): Observable<any> {
+    return this.http.get<Nivel>(this.baseUrl + '/niveles');
+  }
+
+  public getNivelDetail(index: number) {
+    return this.http.get<Nivel>(this.baseUrl + `/nivel/${index}`);
+  }
+
+  public postNivel(nivel: Nivel) {
+    return this.http.post<Nivel>(this.baseUrl + '/nivel', nivel);
+  }
+
+  public putNivel(nivel: Nivel) {
+    return this.http.put<Nivel>(this.baseUrl + `/nivelUpdate/`, nivel);
+  }
+
+  public deleteNivel(id: number) {
+    return this.http.delete<Nivel>(this.baseUrl + `/nivel?id=${id}`);
+  }
+
+  //REST Plan Estudios  
+  public getPlanes(): Observable<any> {
+    return this.http.get<PlanEstudios>(this.baseUrl + '/planes');
+  }
+
+  public getPlanDetail(index: number) {
+    return this.http.get<PlanEstudios>(this.baseUrl + `/plan/${index}`);
+  }
+
+  public postPlan(plan: PlanEstudios) {
+    return this.http.post<PlanEstudios>(this.baseUrl + '/plan', plan);
+  }
+
+  public putPlan(plan: PlanEstudios) {
+    return this.http.put<PlanEstudios>(this.baseUrl + `/planUpdate/`, plan);
+  }
+
+  public deletePlan(id: number) {
+    return this.http.delete<PlanEstudios>(this.baseUrl + `/plan?id=${id}`);
+  }
+
 }

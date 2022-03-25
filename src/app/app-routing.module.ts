@@ -8,6 +8,14 @@ import { ProfesorDetailComponent } from './components/profesor-detail/profesor-d
 import { ProduccionesTableComponent } from './components/producciones-table/producciones-table.component';
 import { AreaConcentracionTableComponent } from './components/area-concentracion-table/area-concentracion-table.component';
 import { AreaConcentracionDetailComponent } from './components/area-concentracion-detail/area-concentracion-detail.component';
+import { AreaInvestigacionTableComponent } from './components/area-investigacion-table/area-investigacion-table.component';
+import { DepartamentoTableComponent } from './components/departamento-table/departamento-table.component';
+import { DivisionTableComponent } from './components/division-table/division-table.component';
+import { EstadoAcademicoTableComponent } from './components/estado-academico-table/estado-academico-table.component';
+import { EstadoAspiranteTableComponent } from './components/estado-aspirante-table/estado-aspirante-table.component';
+import { InstitucionesTableComponent } from './components/instituciones-table/instituciones-table.component';
+import { NivelTableComponent } from './components/nivel-table/nivel-table.component';
+import { PlanTableComponent } from './components/plan-table/plan-table.component';
 
 const routes: Routes = [
   {
@@ -22,7 +30,14 @@ const routes: Routes = [
   {path:'producciones',component: ProduccionesTableComponent},
   {path:'produccionDetail/:id',component: ProduccionesDetailComponent},
   {path:'areas-concentracion',component: AreaConcentracionTableComponent},
-  {path:'area-concentracion/:id',component: AreaConcentracionDetailComponent},
+  {path:'areas-investigacion',component: AreaInvestigacionTableComponent},
+  {path:'departamentos',component: DepartamentoTableComponent},
+  {path:'divisiones',component: DivisionTableComponent},
+  {path:'estados-academicos',component: EstadoAcademicoTableComponent},
+  {path:'estados-aspirantes',component: EstadoAspiranteTableComponent},
+  {path:'instituciones',component: InstitucionesTableComponent},
+  {path:'niveles',component: NivelTableComponent},
+  {path:'planes',component: PlanTableComponent},
 ];
 
 @NgModule({

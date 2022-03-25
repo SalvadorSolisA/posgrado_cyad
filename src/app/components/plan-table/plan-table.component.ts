@@ -3,19 +3,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-import { AreaConcentracion } from 'src/app/interfaces/AreaConcentracion';
 import { CyadService } from 'src/app/service/cyad.service';
-import { AreaConcentracionDetailComponent } from '../area-concentracion-detail/area-concentracion-detail.component';
+import { PlanDetailComponent } from '../plan-detail/plan-detail.component';
 
 @Component({
-  selector: 'app-area-concentracion-table',
-  templateUrl: './area-concentracion-table.component.html',
-  styleUrls: ['./area-concentracion-table.component.scss']
+  selector: 'app-plan-table',
+  templateUrl: './plan-table.component.html',
+  styleUrls: ['./plan-table.component.scss']
 })
-export class AreaConcentracionTableComponent implements OnInit {
+export class PlanTableComponent implements OnInit {
 
-  displayColumns: String[] = ['id','area','action'];
+  title: string = "Planes de estudio";
+  displayColumns: String[] = ['id','clave','creditos','duracion','division','activo','action'];
   data: any[] = [];
   dataSource = new MatTableDataSource<any>(this.data);
   resultsLength:number = 0;
@@ -27,12 +26,13 @@ export class AreaConcentracionTableComponent implements OnInit {
   constructor(private cyadService: CyadService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.getAreasConcentracion();
+    this.getAllPlanes();
   }
 
-  getAreasConcentracion(){
-    this.cyadService.getAreasConcentracion().subscribe({
+  getAllPlanes(){
+    this.cyadService.getPlanes().subscribe({
       next:(res)=>{
+        console.log(res);
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -52,39 +52,39 @@ export class AreaConcentracionTableComponent implements OnInit {
     }
   }
 
-  editArea(row: any): void {
-    this.dialog.open(AreaConcentracionDetailComponent, {
+  editPlan(row: any): void {
+    this.dialog.open(PlanDetailComponent, {
       data: row
     }).afterClosed().subscribe(
       val => {
         if (val === 'update') {
-          this.getAreasConcentracion();
+          this.getAllPlanes();
         }
       })
 
   }
 
   openDialog(){
-    const dialogRef =  this.dialog.open(AreaConcentracionDetailComponent);
+    const dialogRef =  this.dialog.open(PlanDetailComponent);
 
     dialogRef.afterClosed().subscribe(
       val =>{
         if(val === 'save'){
-          this.getAreasConcentracion();
+          this.getAllPlanes();
         }
       }
     );
   }
 
-  deleteArea(id:number){
-    this.cyadService.deleteAreaConcentracion(id).subscribe({
+  deletePlan(id:number){
+    this.cyadService.deletePlan(id).subscribe({
       next:(res)=>{
-        alert("Area Delete Successfully");
+        alert("Plan Delete Successfully");
+        this.getAllPlanes();
       },
       error:(err)=>{
-        alert("Error while deleting the area");
+        alert("Error while deleting the plan");
       }
     });
   }
-
 }

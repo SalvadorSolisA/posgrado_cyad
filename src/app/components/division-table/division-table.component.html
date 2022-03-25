@@ -1,14 +1,14 @@
 <div class="main-content">
     <div class="header">
-        <h1>Áreas de Concentración</h1>
+        <h1>{{title}}</h1>
         <button mat-raised-button (click)="openDialog()" color="primary">
             <mat-icon>add</mat-icon>
-            Agregar área
+            Agregar
         </button>
     </div>
     <mat-form-field class="filter" appearance="standard">
         <mat-label><mat-icon matPrefix>search</mat-icon>Buscar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Area de concentración" #input>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Areas de concentración" #input>
     </mat-form-field>
     <div class="mat-elevation-z8">
         <div class="table-container">
@@ -20,20 +20,30 @@
                     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                 </ng-container>
 
-                <!-- Areas de contracion Column -->
-                <ng-container matColumnDef="area">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> AREA DE CONCENTRACIÓN </th>
-                    <td mat-cell *matCellDef="let element"> {{element.area}} </td>
+                <!-- departamento Column -->
+                <ng-container matColumnDef="division">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> DIVISION </th>
+                    <td mat-cell *matCellDef="let element"> {{element.division}} </td>
                 </ng-container>
-
+                
+                <!-- activo Column -->
+                <ng-container matColumnDef="activo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTIVO </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="chip">
+                            {{element.activo}}
+                        </div>
+                    </td>
+                </ng-container>
+                
                 <!-- Action Column -->
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
                     <td mat-cell *matCellDef="let row">
-                        <button mat-icon-button (click)="editArea(row)" color="primary">
+                        <button mat-icon-button (click)="editDivision(row)" color="primary">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button (click)="deleteArea(row.id)" color="warn">
+                        <button mat-icon-button (click)="deleteDivision(row.id)" color="warn">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>

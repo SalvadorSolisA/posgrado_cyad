@@ -3,35 +3,33 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-import { AreaConcentracion } from 'src/app/interfaces/AreaConcentracion';
 import { CyadService } from 'src/app/service/cyad.service';
-import { AreaConcentracionDetailComponent } from '../area-concentracion-detail/area-concentracion-detail.component';
+import { AreaInvestigacionDetailComponent } from '../area-investigacion-detail/area-investigacion-detail.component';
 
 @Component({
-  selector: 'app-area-concentracion-table',
-  templateUrl: './area-concentracion-table.component.html',
-  styleUrls: ['./area-concentracion-table.component.scss']
+  selector: 'app-area-investigacion-table',
+  templateUrl: './area-investigacion-table.component.html',
+  styleUrls: ['./area-investigacion-table.component.scss']
 })
-export class AreaConcentracionTableComponent implements OnInit {
+export class AreaInvestigacionTableComponent implements OnInit {
 
-  displayColumns: String[] = ['id','area','action'];
+  displayColumns: String[] = ['id','area_investigacion','activo','action'];
   data: any[] = [];
   dataSource = new MatTableDataSource<any>(this.data);
   resultsLength:number = 0;
 
-
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  
   constructor(private cyadService: CyadService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.getAreasConcentracion();
+    this.getAreasInvestigacion();
   }
 
-  getAreasConcentracion(){
-    this.cyadService.getAreasConcentracion().subscribe({
+  //Obtiene todas las areas de investigacion del servicio
+  getAreasInvestigacion(){
+    this.cyadService.getAreasInvestigacion().subscribe({
       next:(res)=>{
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
@@ -43,6 +41,7 @@ export class AreaConcentracionTableComponent implements OnInit {
     });
   }
 
+  //Filtro de datos en tabla
   applyFilter(event : Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -52,39 +51,43 @@ export class AreaConcentracionTableComponent implements OnInit {
     }
   }
 
+  //actualización envia la data al componente detail
   editArea(row: any): void {
-    this.dialog.open(AreaConcentracionDetailComponent, {
+    this.dialog.open(AreaInvestigacionDetailComponent,{
       data: row
     }).afterClosed().subscribe(
-      val => {
+      val=>{
         if (val === 'update') {
-          this.getAreasConcentracion();
-        }
-      })
-
-  }
-
-  openDialog(){
-    const dialogRef =  this.dialog.open(AreaConcentracionDetailComponent);
-
-    dialogRef.afterClosed().subscribe(
-      val =>{
-        if(val === 'save'){
-          this.getAreasConcentracion();
+          this.getAreasInvestigacion();
         }
       }
     );
   }
 
-  deleteArea(id:number){
-    this.cyadService.deleteAreaConcentracion(id).subscribe({
+  //Abre cuadro de dialogo para ingresar una nueva area de investigacion
+  openDialog(){
+    this.dialog.open(AreaInvestigacionDetailComponent)
+    .afterClosed().subscribe(
+      val=>{
+        if(val === 'save'){
+          this.getAreasInvestigacion();
+        }
+      }
+    );
+  }
+
+  //borrado de area de investigacion
+  deleteArea(id: number){
+    this.cyadService.deleteAreaInvestigacion(id).subscribe({
       next:(res)=>{
-        alert("Area Delete Successfully");
+        alert("Area Investigacion Delete Successfully");
+        this.getAreasInvestigacion();
       },
       error:(err)=>{
-        alert("Error while deleting the area");
+        alert("Error while deleting the area investigacion");
       }
     });
   }
 
+  
 }
