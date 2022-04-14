@@ -1,4 +1,5 @@
-import { TipoProduccion } from "./tipoproduccion";
+import { Autor } from "./autor";
+import { TipoProduccion } from "./tipo-produccion";
 
 export interface Produccion {
     id: number;
@@ -8,4 +9,6 @@ export interface Produccion {
     descripcion: String;
     lgac: String;
     tipo: TipoProduccion;
+    activo: boolean;
+    autores: Autor[];
 }

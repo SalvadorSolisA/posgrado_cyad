@@ -1,0 +1,109 @@
+<div class="container">
+    <mat-stepper #stepper>
+        <mat-step [stepControl]="firstFormGroup" errorMessage="Campos vacios.">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Datos del proyecto</ng-template>
+            <!--Campo tipo-->
+            <mat-form-field appearance="outline" required>
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="tipo">
+                    <mat-option *ngFor="let item of listTiposProyecto" [value]="item.id">{{item.tipo}}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>edit</mat-icon>
+            </mat-form-field>
+            <!--Campo titulo-->
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Titulo</mat-label>
+                <input type="text" matInput placeholder="Titulo del proyecto" formControlName="titulo" required>
+                <mat-icon matSuffix>edit</mat-icon>
+            </mat-form-field>
+            <!--Campo descripcion-->
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Descripciòn</mat-label>
+                <textarea matInput placeholder="Escribe una breve descripciòn"  formControlName="descripcion" required></textarea>
+            </mat-form-field>
+            <!--Campo fecha inicio-->
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Fecha de inicio</mat-label>
+                <input type="date" matInput placeholder="2022/01/10" formControlName="fecha_inicio" required>
+            </mat-form-field>
+            <!--Campo fecha termino-->
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Fecha de termino (optima)</mat-label>
+                <input type="date" matInput placeholder="2022/01/10" formControlName="fecha_termino" >
+            </mat-form-field>
+            <!--Campo lgac-->
+            <mat-form-field appearance="outline" required>
+                <mat-label>LGAC</mat-label>
+                <mat-select formControlName="lgac">
+                    <mat-option value="1">LGAX</mat-option>
+                    <mat-option value="2">TRABAJO</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>edit</mat-icon>
+            </mat-form-field>
+            <div>
+              <p>Ve a un step diferente para ver el error</p>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" errorMessage="Campos vacios">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Grupo protocolo</ng-template>
+            <!--Campo director-->
+            <mat-form-field appearance="outline" required>
+                <mat-label>Director</mat-label>
+                <mat-select formControlName="director">
+                    <mat-option *ngFor="let profesor of listProfesores" [value]="profesor.id">{{profesor.nombre}}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>edit</mat-icon>
+            </mat-form-field>
+            <!--Campo codirector-->
+            <mat-form-field appearance="outline" required>
+                <mat-label>Codirector</mat-label>
+                <mat-select formControlName="codirector">
+                    <mat-option *ngFor="let profesor of listProfesores" [value]="profesor.id">{{profesor.nombre}}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>edit</mat-icon>
+            </mat-form-field>
+            <!--Campo asesores-->
+            <div>
+                <button mat-raised-button (click)="agregarCorreo()" color="primary">
+                    Agregar Asesor
+                </button>
+            </div>
+            <div layout="row" layout-align="center center" formArrayName="asesores" class="" *ngFor="let asesor of asesores.controls; let i = index">
+                <div [formGroupName]="i">
+                    <mat-form-field class="form-field" appearance="outline" >
+                        <mat-label>Asesor</mat-label>
+                        <mat-select formControlName="asesor">
+                            <mat-option *ngFor="let profesor of listProfesores" [value]="profesor.id">{{profesor.nombre}}</mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix>edit</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <button mat-raised-button (click)="removerAsesor(i)" color="warn">
+                        Remover
+                    </button>
+                </div>
+            </div>
+            <div>
+              <p>Ve a un step diferente para ver el error</p>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Hecho</ng-template>
+            <p>Para concluir el registro de clic en aceptar.</p>
+            <button mat-flat-button (click)="addProyecto()" color="primary">Aceptar</button>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+</div>
+  

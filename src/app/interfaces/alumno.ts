@@ -1,4 +1,6 @@
 import { Correo } from "./correo";
+import { DatosAcademicos } from "./datos-academicos";
+import { DatosIngreso } from "./datos-ingreso";
 import { Direccion } from "./direccion";
 
 export interface Alumno {
@@ -16,7 +18,9 @@ export interface Alumno {
     genero : string;
     telefono : string;
     nacionalidad : string;
-    correo: Correo;
-    direccion: Direccion;
+    correos: Correo[];
+    direcciones: Direccion[];
+    datos_ingreso: DatosIngreso;
+    datos_academicos: DatosAcademicos;
     activo : boolean;
 }

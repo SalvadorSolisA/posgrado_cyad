@@ -1,58 +1,56 @@
 @import "../../../assets/styles/variables.scss";
   
   .container {
-    max-width: 410px;
-    min-width: 350px;
-    margin: 5px;
-    padding: 5px;
+    width: 80%;
+    margin-top: 30px;
+    padding: 10px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%,-0%);
   }
 
-  .card {
-    position: relative;
-  }
-  
-  .more-button{
-    position: absolute;
-    top: 5px;
-    right: 50px;
+  .mat-divider{
+    margin-bottom: 20px;
   }
 
-  .more-button2{
+  .example-action-buttons {
+    padding-bottom: 20px;
+  }
+
+  .example-action-buttons .btnAction{
     position: absolute;
-    top: 5px;
+    top: 15px;
     right: 10px;
   }
 
-  .card-content {
-    position: relative;
-    top: 5px;
+  .example-action-buttons .btnCancelar{
+    
+    position: absolute;
+    top: 15px;
+    right: 100px;
+    margin-right: 10px;
+  }
+  
+  
+  .example-headers-align .mat-expansion-panel-header-title,
+  .example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .example-headers-align .mat-form-field + .mat-form-field {
+    margin-left: 8px;
   }
 
-  .form-field{
+  .container-table{
     width: 100%;
   }
-  
-  .container-form-short{
-    .mat-form-field{
-      width: 100px;
-      margin-left: 10px;
-    }
+
+  .container-table table{
+    width: 100%;
   }
-
-  ::ng-deep .mat-focused  {
-    /*change color when focus*/
-
-    .mat-form-field-label{
-      color: $primary !important;
-    }
-    
-    .mat-icon{
-      color: $primary !important;
-    }
-   }
-
-  
-  /*::ng-deep.mat-form-field-ripple {*/
-   /*change color of underline when focused*/
-  /*background-color: green !important;
-  }*/

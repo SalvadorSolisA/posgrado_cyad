@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+    <form  [formGroup]="areaForm" >
+        <mat-form-field  form appearance="fill">
+            <mat-label>Id</mat-label>
+            <input matInput formControlName="id" placeholder="ID"/>
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Calve</mat-label>
+            <input type="number" formControlName="clave" matInput placeholder="Clave de autor" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill" required>
+            <mat-label>Tipo</mat-label>
+            <mat-select formControlName="tipo_clave">
+                <mat-option *ngFor="let tipo of listTipoClave" [value]="tipo.id">{{tipo.tipo}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>edit</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input type="text" formControlName="nombre" matInput placeholder="NOMBRE DE AUTOR" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Apellido Paterno</mat-label>
+            <input type="text" formControlName="ap_paterno" matInput placeholder="APELIIDO PATERNO" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Apellido Materno</mat-label>
+            <input type="text" formControlName="ap_materno" matInput placeholder="APELIIDO MATERNO" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Nacionalidad</mat-label>
+            <input type="text" formControlName="nacionalidad" matInput placeholder="NACIONALIDAD" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
+    <button mat-raised-button color="primary" mat-dialog-close (click)="addAutor()">{{actionBtn}}</button>
+</div>

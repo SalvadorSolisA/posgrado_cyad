@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Profesor } from 'src/app/interfaces/profesor';
 import { CyadService } from 'src/app/service/cyad.service';
+import { ProfesorDetailComponent } from '../profesor-detail/profesor-detail.component';
 
 @Component({
   selector: 'app-profesor-table',
@@ -12,44 +14,32 @@ import { CyadService } from 'src/app/service/cyad.service';
 })
 export class ProfesorTableComponent implements OnInit {
 
-  displayedColumns: String[] = ['id','numero_eco','nombre','apellido_pat','apellido_mat'];
+  title: string = "Profesores";
+  displayedColumns: String[] = ['id','numero_eco','nombre','apellido_pat','apellido_mat','activo','action'];
   data: any[] = [];
   dataSource = new MatTableDataSource<any>(this.data);
-  profesores = [];
+  resultsLength:number = 0;
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-
-  constructor(private cyadService : CyadService, private router: Router) { }
+  @ViewChild(MatSort) sort!: MatSort;
+  
+  constructor(private cyadService : CyadService, private dialog: MatDialog, private router : Router) { }
 
   ngOnInit(): void {
-    this.getProfesores();
+    this.getAllProfesores();
   }
 
-  getProfesores(){
-
-    let profesorData;
-
-    this.cyadService.getProfesores().subscribe(
-      res =>{
-        res.forEach((prof :Profesor) => {
-          profesorData = {
-            id : prof.id,
-            numero_eco : prof.numero_economico,
-            nombre : prof.nombre,
-            apellido_pat : prof.ap_paterno,
-            apellido_mat : prof.ap_materno
-          };
-          this.data.push(profesorData);
-          this.dataSource = new MatTableDataSource<any>(this.data);
-          this.dataSource.paginator = this.paginator;
-        });
-        //imprime el res en consola
-        console.log(res);
+  getAllProfesores(){
+    this.cyadService.getProfesores().subscribe({
+      next:(res)=>{
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
-      err=>{
+      error:(err)=>{
         console.error(err);
       }
-    );
+    });
   }
 
   applyFilter(event : Event) {
@@ -61,9 +51,40 @@ export class ProfesorTableComponent implements OnInit {
     }
   }
 
+  openDialog(){
+    const dialogRef =  this.dialog.open(ProfesorDetailComponent);
 
-  getRow(row: any){
-    this.router.navigateByUrl(`profesorDetail/${row.id}`);
+    dialogRef.afterClosed().subscribe(
+      val =>{
+        if(val === 'save'){
+          this.getAllProfesores();
+        }
+      }
+    );
+  }
+
+  editInstitucion(row: any){
+    this.dialog.open(ProfesorDetailComponent, {
+      data: row
+    }).afterClosed().subscribe(
+      val => {
+        if (val === 'update') {
+          this.getAllProfesores();
+        }
+      })
+  }
+
+  deleteInstitucion(id: number){
+    this.cyadService.deleteProfesor(id).subscribe({
+      next:(res)=>{
+        alert("profesor Delete Successfully");
+        this.getAllProfesores();
+      },
+      error:(err)=>{
+        alert("Error while deleting the profesor");
+        console.error(err);
+      }
+    });
   }
 
 }

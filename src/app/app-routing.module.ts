@@ -16,6 +16,16 @@ import { EstadoAspiranteTableComponent } from './components/estado-aspirante-tab
 import { InstitucionesTableComponent } from './components/instituciones-table/instituciones-table.component';
 import { NivelTableComponent } from './components/nivel-table/nivel-table.component';
 import { PlanTableComponent } from './components/plan-table/plan-table.component';
+import { ProyectoTableComponent } from './components/proyecto-table/proyecto-table.component';
+import { AspiranteTableComponent } from './components/aspirante-table/aspirante-table.component';
+import { AspiranteDetailComponent } from './components/aspirante-detail/aspirante-detail.component';
+import { ProyectoDetailComponent } from './components/proyecto-detail/proyecto-detail.component';
+import { ProduccionRegisterComponent } from './components/produccion-register/produccion-register.component';
+import { OrdenAutorTableComponent } from './components/orden-autor-table/orden-autor-table.component';
+import { TipoProduccionTableComponent } from './components/tipo-produccion-table/tipo-produccion-table.component';
+import { AutorTableComponent } from './components/autor-table/autor-table.component';
+import { TipoProyectoTableComponent } from './components/tipo-proyecto-table/tipo-proyecto-table.component';
+import { ProyectoRegisterComponent } from './components/proyecto-register/proyecto-register.component';
 
 const routes: Routes = [
   {
@@ -25,10 +35,20 @@ const routes: Routes = [
   },
   {path:'alumnos',component:AlumnoTableComponent},
   {path:'alumnoDetail/:id',component:AlumnoDetailComponent},
+  {path:'alumnoDetail',component:AlumnoDetailComponent},
+  {path:'aspirantes',component:AspiranteTableComponent},
+  {path:'aspiranteDetail/:id',component:AspiranteDetailComponent},
+  {path:'aspiranteDetail',component:AspiranteDetailComponent},
   {path:'profesores',component: ProfesorTableComponent},
+  {path:'profesorDetail',component: ProfesorDetailComponent},
   {path:'profesorDetail/:id',component: ProfesorDetailComponent},
+  {path:'autores',component: AutorTableComponent},
   {path:'producciones',component: ProduccionesTableComponent},
+  {path:'produccion-register',component: ProduccionRegisterComponent},
   {path:'produccionDetail/:id',component: ProduccionesDetailComponent},
+  {path:'proyectos',component: ProyectoTableComponent},
+  {path:'proyecto-register',component: ProyectoRegisterComponent},
+  {path:'proyectoDetail/:id',component: ProyectoDetailComponent},
   {path:'areas-concentracion',component: AreaConcentracionTableComponent},
   {path:'areas-investigacion',component: AreaInvestigacionTableComponent},
   {path:'departamentos',component: DepartamentoTableComponent},
@@ -38,6 +58,9 @@ const routes: Routes = [
   {path:'instituciones',component: InstitucionesTableComponent},
   {path:'niveles',component: NivelTableComponent},
   {path:'planes',component: PlanTableComponent},
+  {path:'orden-autores',component: OrdenAutorTableComponent},
+  {path:'tipo-produccion',component: TipoProduccionTableComponent},
+  {path:'tipo-proyecto',component: TipoProyectoTableComponent},
 ];
 
 @NgModule({

@@ -1,18 +1,29 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Alumno } from '../interfaces/alumno';
-import { AreaConcentracion } from '../interfaces/AreaConcentracion';
+import { AreaConcentracion } from '../interfaces/area-concentracion';
 import { AreaInvestigacion } from '../interfaces/areaInvestiongacion';
+import { Aspirante } from '../interfaces/aspirante';
+import { Autor } from '../interfaces/autor';
 import { Departamento } from '../interfaces/departamento';
+import { Direccion } from '../interfaces/direccion';
 import { Division } from '../interfaces/division';
 import { EstadoAcademico } from '../interfaces/estado-academico';
 import { EstadoAspirante } from '../interfaces/estado-aspirante';
+import { GrupoProtocolo } from '../interfaces/grupo-protocolo';
 import { Institucion } from '../interfaces/institucion';
 import { Nivel } from '../interfaces/nivel';
+import { OrdenAutor } from '../interfaces/orden-autor';
+import { Participante } from '../interfaces/participante';
 import { PlanEstudios } from '../interfaces/plan-estudios';
 import { Produccion } from '../interfaces/produccion';
+import { Profesor } from '../interfaces/profesor';
+import { Proyecto } from '../interfaces/proyecto';
+import { TipoClaveAutor } from '../interfaces/tipo-clave-autor';
+import { TipoProduccion } from '../interfaces/tipo-produccion';
+import { TipoProyecto } from '../interfaces/tipo-proyecto';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +32,11 @@ export class CyadService {
 
   private baseUrl = environment.baseUrl;//"https://a203f053-e95a-4622-9ad4-1fb5435d9a5e.mock.pstmn.io";//environment.baseUrl;
 
+  @Output() disparadorData:EventEmitter<any> = new EventEmitter();
+  
   constructor(private http : HttpClient) { }
 
+  //REST Alumnos
   public getAlumnos(): Observable<any>{
     return this.http.get(this.baseUrl+'/alumnos');
   }
@@ -30,7 +44,22 @@ export class CyadService {
   public getAlumnoDetail(index: number){
     return this.http.get<Alumno>(this.baseUrl+`/alumno/${index}`);
   }
+
+  public postAlumno(alumn: any){
+    console.log('data enviada: ', alumn);
+    return this.http.post<Alumno>(this.baseUrl+'/alumno',alumn);
+  }
+
+  public putAlumno(alumn: Alumno){
+    return this.http.put<Alumno>(this.baseUrl+`/alumnoUpdate`,alumn);
+  }
+
+  public deleteAlumno(id: number){
+    return this.http.delete<Alumno>(this.baseUrl+`/alumno/?id=${id}`);
+  }
+
   
+  //REST Profesor
   public getProfesores():Observable<any>{
     return this.http.get( this.baseUrl + '/profesores');
   }
@@ -38,7 +67,20 @@ export class CyadService {
   public getProfesorDetails(index : number){
     return this.http.get<any>( this.baseUrl + `/profesor/${index}`);
   }
-  
+
+  public postProfesor(profe: Profesor){
+    return this.http.post<Profesor>(this.baseUrl+'/profesor',profe);
+  }
+
+  public putProfesor(profe: Profesor){
+    return this.http.put<Profesor>(this.baseUrl+`/profesorUpdate`,profe);
+  }
+
+  public deleteProfesor(id: number){
+    return this.http.delete<Profesor>(this.baseUrl+`/profesor/?id=${id}`);
+  }
+
+  //REST producciones
   public getProducciones():Observable<any>{
     return this.http.get( this.baseUrl + '/producciones'  )
   }
@@ -47,6 +89,108 @@ export class CyadService {
     return this.http.get<Produccion>( this.baseUrl + `/producciones/${index}`);
   }
 
+  public postProduccion(prod: any){
+    console.log('data enviada: ', prod);
+    return this.http.post<Produccion>(this.baseUrl+'/produccion',prod);
+  }
+
+  public putProduccion(prod: Produccion){
+    return this.http.put<Produccion>(this.baseUrl+`/produccionUpdate`,prod);
+  }
+
+  public deleteProduccion(id: number){
+    return this.http.delete<Produccion>(this.baseUrl+`/produccion/?id=${id}`);
+  }
+
+  //REST proyectos
+  public getProyectos():Observable<any>{
+    return this.http.get( this.baseUrl + '/proyectos'  )
+  }
+
+  public getProyectoDetail(index: number){
+    return this.http.get<Proyecto>( this.baseUrl + `/proyecto/${index}`);
+  }
+
+  public postProyecto(proyect: any){
+    return this.http.post<Proyecto>(this.baseUrl+'/proyecto',proyect);
+  }
+
+  public putProyecto(proyect: Proyecto){
+    return this.http.put<Proyecto>(this.baseUrl+`/proyectoUpdate`,proyect);
+  }
+
+  public deleteProyecto(id: number){
+    return this.http.delete<Proyecto>(this.baseUrl+`/proyecto/?id=${id}`);
+  }
+
+  //REST tipos de proyectos
+  public getTiposProyectos():Observable<any>{
+    return this.http.get( this.baseUrl + '/tiposProyectos'  )
+  }
+
+  public getTipoProyectoDetail(index: number){
+    return this.http.get<TipoProyecto>( this.baseUrl + `/tipoProyecto/${index}`);
+  }
+
+  public postTipoProyecto(tipo: TipoProyecto){
+    return this.http.post<TipoProyecto>(this.baseUrl+'/tipoProyecto',tipo);
+  }
+
+  public putTipoProyecto(tipo: TipoProyecto){
+    return this.http.put<TipoProyecto>(this.baseUrl+`/tipoProyectoUpdate`,tipo);
+  }
+
+  public deleteTipoProyecto(id: number){
+    return this.http.delete<TipoProyecto>(this.baseUrl+`/tipoProyecto/?id=${id}`);
+  }
+
+  //REST grupo protocolo
+  public getGruposProtocolos():Observable<any>{
+    return this.http.get( this.baseUrl + '/gruposProtocolo'  )
+  }
+
+  public getGrupoProtocolo(index: number){
+    return this.http.get<GrupoProtocolo>( this.baseUrl + `/grupoProtocolo/${index}`);
+  }
+
+  public postGrupoProtocoloClave(){
+    return this.http.post<GrupoProtocolo>(this.baseUrl+'/newgrupoProtocolo',null);
+  }
+
+  public postGrupoProtocolo(grupo: any){
+    return this.http.post<GrupoProtocolo>(this.baseUrl+'/grupoProtocolo',grupo);
+  }
+
+  public putGrupoProtocolo(grupo: GrupoProtocolo){
+    return this.http.put<GrupoProtocolo>(this.baseUrl+`/grupoProtocoloUpdate`,grupo);
+  }
+
+  public deleteGrupoProtocolo(id: number){
+    return this.http.delete<GrupoProtocolo>(this.baseUrl+`/grupoProtocolo/?id=${id}`);
+  }
+
+  //REST Participantes del grupo de protocolo
+  public getParticipantes():Observable<any>{
+    return this.http.get( this.baseUrl + '/participantes'  )
+  }
+
+  public getParticipante(index: number){
+    return this.http.get<Participante>( this.baseUrl + `/participante/${index}`);
+  }
+
+  public postParticipante(participante: any){
+    return this.http.post<Participante>(this.baseUrl+'/participante',participante);
+  }
+
+  public putParticipante(participante: Participante){
+    return this.http.put<Participante>(this.baseUrl+`/participanteUpdate`,participante);
+  }
+
+  public deleteParticipante(id: number){
+    return this.http.delete<Participante>(this.baseUrl+`/participante/?id=${id}`);
+  }
+
+  //REST areas de concentracion
   public getAreasConcentracion(): Observable<any>{
     return this.http.get( this.baseUrl+'/areas-concentracion');
   }
@@ -81,8 +225,6 @@ export class CyadService {
   }
 
   public putAreaInvestigacion(area: AreaInvestigacion){
-    console.log("datos enviados " + area.id)
-    console.log("datos enviados " + area.area_investigacion)
     return this.http.put<AreaInvestigacion>(this.baseUrl+`/area-investigacionUpdate/`,area);
   }
 
@@ -256,6 +398,135 @@ export class CyadService {
 
   public deletePlan(id: number) {
     return this.http.delete<PlanEstudios>(this.baseUrl + `/plan?id=${id}`);
+  }
+
+  //REST Direccion
+
+  public getDireccionAlumno(index : number) {
+    return this.http.get<Direccion>(this.baseUrl + `/direccion-alumno/${index}` );
+  }
+
+  public postDireccion(direc: Direccion) {
+    return this.http.post<Direccion>(this.baseUrl + '/direccion', direc);
+  }
+
+  public putDireccion(direc: Direccion) {
+    return this.http.put<Direccion>(this.baseUrl + `/direccionUpdate/`, direc);
+  }
+
+  public deleteDireccion(id: number) {
+    return this.http.delete<Direccion>(this.baseUrl + `/direccion?id=${id}`);
+  }
+
+  //REST Aspirantes
+
+  public getAspirantes(): Observable<any> {
+    return this.http.get<Aspirante>(this.baseUrl + '/aspirantes');
+  }
+
+  public getAspiranteDetail(index: number) {
+    return this.http.get<Aspirante>(this.baseUrl + `/aspirante/${index}`);
+  }
+
+  public postAspirante(aspirante: any) {
+    return this.http.post<Aspirante>(this.baseUrl + '/aspirante', aspirante);
+  }
+
+  public putAspirante(aspirante: Aspirante) {
+    return this.http.put<Aspirante>(this.baseUrl + `/aspiranteUpdate/`, aspirante);
+  }
+
+  public deleteAspirante(id: number) {
+    return this.http.delete<Aspirante>(this.baseUrl + `/aspirante?id=${id}`);
+  }
+
+  //REST Autores
+
+  public getAutores(): Observable<any> {
+    return this.http.get<Autor>(this.baseUrl + '/autores');
+  }
+
+  public getAutorDetail(index: number) {
+    return this.http.get<Autor>(this.baseUrl + `/autor/${index}`);
+  }
+
+  public postAutor(autor: any) {
+    console.log('data enviada  ',autor);
+    return this.http.post<Autor>(this.baseUrl + '/autor', autor);
+  }
+
+  public putAutor(autor: any) {
+    return this.http.put<Autor>(this.baseUrl + `/autorUpdate/`, autor);
+  }
+
+  public deleteAutor(id: number) {
+    return this.http.delete<Autor>(this.baseUrl + `/autor?id=${id}`);
+  }
+
+  //REST Orden autor
+
+  public getOrdenAutores(): Observable<any> {
+    return this.http.get<OrdenAutor>(this.baseUrl + '/ordenAutores');
+  }
+
+  public getOrdenAutorDetail(index: number) {
+    return this.http.get<OrdenAutor>(this.baseUrl + `/ordenAutor/${index}`);
+  }
+
+  public postOrdenAutor(orden: any) {
+    return this.http.post<OrdenAutor>(this.baseUrl + '/ordenAutor', orden);
+  }
+
+  public putOrdenAutor(orden: OrdenAutor) {
+    return this.http.put<OrdenAutor>(this.baseUrl + `/ordenAutorUpdate/`, orden);
+  }
+
+  public deleteOrdenAutor(id: number) {
+    return this.http.delete<OrdenAutor>(this.baseUrl + `/ordenAutor?id=${id}`);
+  }
+
+  //REST tipos de clave autor
+
+  public getTiposClavesAutor(): Observable<any> {
+    return this.http.get<TipoClaveAutor>(this.baseUrl + '/tipoClaveAutores');
+  }
+
+  public getTipoClaveAutor(index: number) {
+    return this.http.get<TipoClaveAutor>(this.baseUrl + `/tipoClaveAutores/${index}`);
+  }
+
+  public postTipoClaveAutor(tipo: any) {
+    return this.http.post<TipoClaveAutor>(this.baseUrl + '/tipoClaveAutor', tipo);
+  }
+
+  public putTipoClaveAutor(tipo: TipoClaveAutor) {
+    return this.http.put<TipoClaveAutor>(this.baseUrl + `/tipoClaveAutorUpdate/`, tipo);
+  }
+
+  public deleteTipoClaveAutor(id: number) {
+    return this.http.delete<TipoClaveAutor>(this.baseUrl + `/tipoClaveAutor?id=${id}`);
+  }
+
+  //REST tipo produccion
+
+  public getTiposProduccion(): Observable<any> {
+    return this.http.get<TipoProduccion>(this.baseUrl + '/tipoProducciones');
+  }
+
+  public getTipoProduccion(index: number) {
+    return this.http.get<TipoProduccion>(this.baseUrl + `/tipoProduccion/${index}`);
+  }
+
+  public postTipoProduccion(tipo: any) {
+    return this.http.post<TipoProduccion>(this.baseUrl + '/tipoProduccion', tipo);
+  }
+
+  public putTipoProduccion(tipo: Autor) {
+    return this.http.put<TipoProduccion>(this.baseUrl + `/tipoProduccionUpdate/`, tipo);
+  }
+
+  public deleteTipoProduccion(id: number) {
+    return this.http.delete<TipoProduccion>(this.baseUrl + `/tipoProduccion?id=${id}`);
   }
 
 }

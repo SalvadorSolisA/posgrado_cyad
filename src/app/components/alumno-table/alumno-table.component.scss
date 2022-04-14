@@ -1,25 +1,73 @@
-table {
-  width: 100%;
-  min-height: 200px;
-  max-height: 400px;
-}
+@import "../../../assets/styles/variables.scss";
 
-.main-content{
-  margin: 10px;
-  position: relative;
-}
+  //header
+  .header{
+    top:10px;
+  }
 
-.table-container{
-  position: relative;
-  min-height: 200px;
-  max-height: 400px;
-  overflow: auto;
-}
+  //titulo
+  .header h1{
+    position: relative;
+    left: 0px;
+    top: 20px;
+  }
 
-.mat-form-field {
-  width: 100%;
-  font-size: 12px;
-  background-color: white;
-}
+  //boton agregar
+  .header button{
+    position: absolute;
+    top: 20px;
+    right: 5px;
+  }
+
+  .main-content{
+    width: 80%;
+    height: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .table-container{
+    position: relative;
+    overflow: auto;
+  }
+
+  table {
+    text-align: center;
+    width: 100%;
+  }
+  
+  //encabezados columna
+  ::ng-deep .mat-header-cell{
+    text-align: center !important;
+  }
+
+  //filtro
+  .filter{
+    font-size: 15px;
+    width: 100%;
+  }
+
+  .chip{
+    height: 20px;
+    width: 50px;
+    color: white;
+    background-color: $acent;
+    border-radius: 12px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
 
+  //ocultando columnas
+  @media screen and (min-width:200px) and (max-width:300px){
+    body{
+      font-size: 8px;
+    }
+
+    .prioridad-3{
+      display: none;
+    }
+  }

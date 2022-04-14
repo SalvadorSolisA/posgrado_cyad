@@ -1,5 +1,11 @@
-.sidenav-container {
-    height: 100%;
+
+
+  .sidenav-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
   
   .sidenav {
@@ -22,23 +28,28 @@
 
   .mat-expansion-panel {
     box-shadow: none;
+    margin: 0px;
   }
 
   .mat-expansion-panel-header{
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .nav-expansion-panel {
     background-color: pink;
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
   }
 
   .nav-expansion-panel .mat-list-item{
     background-color: blue;
-    margin: 0px;
-    padding: 0px;
+  }
+
+  .mat-sidenav-content .mat-toolbar{
     width: 100%;
+    position: fixed;
+    top: 0px;
+  }
+
+  .outlet{
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 20px;
+    position: relative;
+    top: 10%;
+    
   }

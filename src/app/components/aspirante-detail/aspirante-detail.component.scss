@@ -1,0 +1,58 @@
+@import "../../../assets/styles/variables.scss";
+
+.mat-divider {
+    margin-bottom: 20px;
+}
+
+.header {
+    text-align: center;
+    height: 100px;
+}
+
+.header h2 {
+    color: $primary;
+    position: absolute;
+    top: 10px;
+}
+
+.header button{
+    position: absolute;
+    top: 10px;
+    right: 0px;
+}
+
+.container {
+    width: 80%;
+    margin-top: 20px;
+    padding: 10px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -0%);
+}
+
+.example-action-buttons {
+    padding-bottom: 20px;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.example-headers-align .mat-form-field+.mat-form-field {
+    margin-left: 8px;
+}
+
+.container-table {
+    width: 100%;
+}
+
+.container-table table {
+    width: 100%;
+}

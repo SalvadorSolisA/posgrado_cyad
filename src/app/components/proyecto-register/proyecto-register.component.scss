@@ -1,0 +1,79 @@
+.container{
+    width: 80%;
+    margin-top: 10px;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%,0%);
+}
+
+.form{
+    text-align: center;
+}
+
+.mat-form-field {
+    padding: 0%;
+    margin-top: 3px;
+    width: 80%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0%);
+}
+
+.fechas{
+    width: 80%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0%);
+}
+
+.fechas .mat-form-field{
+    width: 30%;
+    margin-left: 0%;
+    margin-right: 10px;
+    transform: translate(-165%,0%);
+}
+
+.list-asesores{
+    width: 80%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0%);
+}
+
+.list-asesores .input{
+    width: 70%;
+    padding: 0;
+}
+
+.list-asesores .input .mat-form-field{
+    width: 100%;
+    position: relative;
+    top: 60%;
+    transform: translate(-50%,-50%);
+}
+
+.list-asesores .button{
+    width: 30%;
+}
+
+.list-asesores .button button{
+    position: relative;
+    left: 10%;
+    top: 50%;
+    transform: translate(0%,-50%);
+}
+
+.button-agregar{
+    position: relative;
+    top: 5px;
+    left: 10%;
+}
+
+p{
+    margin-top: 20px;
+}

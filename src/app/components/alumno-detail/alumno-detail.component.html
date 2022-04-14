@@ -1,128 +1,402 @@
 <div class="container">
-    <h1 class="mat-h1">Datos del alumno</h1>
-    <mat-card class="card">
-        <mat-card-header>
-            <mat-card-title>
-                {{alumno.nombre}}
-                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu" xPosition="before">
-                    <button mat-menu-item>Imprimir</button>
-                    <button mat-menu-item>Exportar</button>
-                </mat-menu>
-                <button mat-icon-button class="more-button2" aria-label="Toggle menu">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="card-content">
-            <form class="form">
-                <!--Campo matricula-->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>Matricula</mat-label>
-                    <input type="text" matInput placeholder="2123032568" value="{{alumno.matricula}}">
-                    <mat-icon matPrefix>school</mat-icon>
-                </mat-form-field>
-                <!--Campo nombre-->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>Nombre(s)</mat-label>
-                    <input type="text" matInput placeholder="Nombre(s)" value="{{alumno.nombre}}">
-                    <mat-icon matPrefix>person</mat-icon>
-                </mat-form-field>
-
-                <!--Campo apellido paterno-->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>Apellido paterno</mat-label>
-                    <input type="text" matInput placeholder="Apellido paterno" value="{{alumno.ap_paterno}}">
-                    <mat-icon matPrefix>person</mat-icon>
-                </mat-form-field>
-
-                <!--Campo apellido materno-->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>Apeliido materno</mat-label>
-                    <input type="text" matInput placeholder="Apellido materno" value="{{alumno.ap_materno}}">
-                    <mat-icon matPrefix>person</mat-icon>
-                </mat-form-field>
-                <div class="container-form-short">
-                    <!--Campo genero-->
-                    <mat-form-field appearance="fill">
-                        <mat-label>Genero</mat-label>
-                        <mat-select value="{{alumno.genero}}">
-                            <mat-option value="F">F</mat-option>
-                            <mat-option value="M">M</mat-option>
-                            <mat-option value="X">X</mat-option>
-                        </mat-select>
+    <div class="example-action-buttons">
+        <button mat-button (click)="accordion.openAll()">Expand All</button>
+        <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+        <button mat-raised-button (click)="addAlumno()" color="primary" class="btnAction">
+            {{actionBtn}}
+        </button>
+        <button mat-raised-button (click)="cancelar()" color="warn" class="btnCancelar">
+            Cancelar
+        </button>
+    </div>
+    <form  [formGroup]="areaForm">
+        <mat-accordion class="example-headers-align" multi>
+            <!--primer panel-->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Alumno
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Datos personales
+                        <mat-icon>account_circle</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <h3 mat-subheader>Datos Personales</h3>
+                <mat-divider></mat-divider>
+                <div class="form-datos-personales">
+                    <!--Campo nombre-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Nombre(s)</mat-label>
+                        <input type="text" matInput placeholder="Nombre(s)" formControlName="nombre">
                         <mat-icon matPrefix>person</mat-icon>
                     </mat-form-field>
-                
-                    <!--Campo edad-->
-                    <mat-form-field appearance="fill">
-                        <mat-label>Edad</mat-label>
-                        <input type="text" matInput placeholder="20" value="{{alumno.edad}}">
+    
+                    <!--Campo apellido paterno-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Apellido paterno</mat-label>
+                        <input type="text" matInput placeholder="Apellido paterno" formControlName="ap_paterno">
+                        <mat-icon matPrefix>person</mat-icon>
+                    </mat-form-field>
+    
+                    <!--Campo apellido materno-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Apeliido materno</mat-label>
+                        <input type="text" matInput placeholder="Apellido materno" formControlName="ap_materno">
+                        <mat-icon matPrefix>person</mat-icon>
+                    </mat-form-field>
+                    <div class="container-form-short">
+                        <!--Campo genero-->
+                        <mat-form-field appearance="fill">
+                            <mat-label>Genero</mat-label>
+                            <mat-select formControlName="genero">
+                                <mat-option value="F">F</mat-option>
+                                <mat-option value="M">M</mat-option>
+                                <mat-option value="X">X</mat-option>
+                            </mat-select>
+                            <mat-icon matPrefix>person</mat-icon>
+                        </mat-form-field>
+    
+                        <!--Campo edad-->
+                        <mat-form-field appearance="fill">
+                            <mat-label>Edad</mat-label>
+                            <input type="text" matInput placeholder="20" formControlName="edad">
+                            <mat-icon matPrefix>person</mat-icon>
+                        </mat-form-field>
+                    </div>
+    
+                    <!--Campo fecha nacimiento-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Fecha de nacimiento</mat-label>
+                        <input type="date" matInput placeholder="2022/01/10" formControlName="fecha_nacimiento" >
+                    </mat-form-field>
+    
+                    <!--Campo nacionalidad-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Nacionalidad</mat-label>
+                        <input type="text" matInput placeholder="Mexicana" formControlName="nacionalidad">
+                        <mat-icon matPrefix>language</mat-icon>
+                    </mat-form-field>
+    
+                    <!--Campo CURP-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>CURP</mat-label>
+                        <input type="text" matInput placeholder="SASO0750909HDFNNS05" formControlName="curp">
+                        <mat-icon matPrefix>person</mat-icon>
+                    </mat-form-field>
+    
+                    <!--Campo RFC-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>RFC</mat-label>
+                        <input type="text" matInput placeholder="SASO075090XXX" formControlName="rfc">
                         <mat-icon matPrefix>person</mat-icon>
                     </mat-form-field>
                 </div>
-
-                <!--Campo fecha nacimiento-->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>Fecha de nacimiento</mat-label>
-                    <input type="date" matInput placeholder="2022/01/10" value="{{alumno.fecha_nacimiento}}">
-                </mat-form-field>
-
-                <!--Campo nacionalidad-->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>Nacionalidad</mat-label>
-                    <input type="text" matInput placeholder="Mexicana" value="{{alumno.nacionalidad}}">
-                    <mat-icon matPrefix>language</mat-icon>
-                </mat-form-field>
-
-                <!--Campo CURP-->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>CURP</mat-label>
-                    <input type="text" matInput placeholder="SASO0750909HDFNNS05" value="{{alumno.curp}}">
-                    <mat-icon matPrefix>person</mat-icon>
-                </mat-form-field>
-
-                <!--Campo RFC-->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>RFC</mat-label>
-                    <input type="text" matInput placeholder="SASO075090XXX" value="{{alumno.rfc}}">
-                    <mat-icon matPrefix>person</mat-icon>
-                </mat-form-field>
-
-                <!--Campo Telefono-->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>Telefono</mat-label>
-                    <input type="tel" matInput placeholder="5555555555" value="{{alumno.curp}}">
-                    <mat-icon matPrefix>phone_android</mat-icon>
-                </mat-form-field>
-
-                <!--Campo Correo -->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>Correo</mat-label>
-                    <input type="email" matInput placeholder="correo@gmail.com" value="{{alumno.correo}}">
-                    <mat-icon matPrefix>email</mat-icon>
-                </mat-form-field>
-
-                <!--Campo Orcid-->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>Orcid</mat-label>
-                    <input type="text" matInput placeholder="0000 0002 6463 3216" value="{{alumno.orcid}}">
-                    <mat-icon matPrefix>school</mat-icon>
-                </mat-form-field>
-
-                <!--Campo cvu-->
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>CVU</mat-label>
-                    <input type="text" matInput placeholder="0000 0002 6463 3216" value="{{alumno.cvu}}">
-                    <mat-icon matPrefix>school</mat-icon>
-                </mat-form-field>
-            </form>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-button>CANCELAR</button>
-            <button mat-button color="primary">GUARDAR</button>
-        </mat-card-actions>
-    </mat-card>
+                <div class="form-claves">
+                    <h3 mat-subheader>Claves</h3>
+                    <mat-divider></mat-divider>
+                    <!--Campo matricula-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Matricula</mat-label>
+                        <input type="text" matInput placeholder="2123032568" formControlName="matricula">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+    
+                    <!--Campo Orcid-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Orcid</mat-label>
+                        <input type="text" matInput placeholder="0000 0002 6463 3216" formControlName="orcid">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+    
+                    <!--Campo cvu-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>CVU</mat-label>
+                        <input type="text" matInput placeholder="0000 0002 6463 3216" formControlName="cvu">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                </div>
+            </mat-expansion-panel>
+            <!--Segundo panel-->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Contacto 
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Datos de contacto
+                        <mat-icon>contact_phone</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+    
+                <div class="form-datos-contacto">
+                    <!--Campo Telefono-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Telefono</mat-label>
+                        <input type="tel" matInput placeholder="5555555555" formControlName="telefono">
+                        <mat-icon matPrefix>phone_android</mat-icon>
+                    </mat-form-field>
+    
+                    <!--Campo Correo -->
+                    <div>
+                        <button mat-raised-button (click)="agregarCorreo()" color="primary">
+                            Agregar
+                        </button>
+                    </div>
+                    <div formArrayName="correos" class="contacto-correos" *ngFor="let correo of correos.controls; let i = index">
+                        <div [formGroupName]="i">
+                            <mat-form-field class="form-field" appearance="fill" >
+                                <mat-label>Correo</mat-label>
+                                <input type="email" matInput placeholder="correo@gmail.com" formControlName="correo">
+                                <mat-icon matPrefix>email</mat-icon>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Tipo</mat-label>
+                                <mat-select formControlName="tipo">
+                                    <mat-option value="PERSONAL">PERSONAL</mat-option>
+                                    <mat-option value="TRABAJO">TRABAJO</mat-option>
+                                </mat-select>
+                                <mat-icon matPrefix>edit</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button mat-raised-button (click)="removerCorreo(i)" color="warn">
+                                Remover
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </mat-expansion-panel>
+    
+            <!--Tercer panel-->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Dirección 
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Domicilio de alumno
+                        <mat-icon>map</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="form-direccion" *ngFor="let direccion of direccionesList">
+                    <!--Campo calle-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Calle</mat-label>
+                        <input type="text" matInput placeholder="Nombre de la calle" value="{{direccion.calle}}">
+                        <mat-icon matPrefix>place</mat-icon>
+                    </mat-form-field>
+                    <!--Campo número-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>No.</mat-label>
+                        <input type="number" matInput placeholder="Número" value="{{direccion.numero}}">
+                        <mat-icon matPrefix>place</mat-icon>
+                    </mat-form-field>
+                    <!--Campo colonia-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Colonia</mat-label>
+                        <input type="text" matInput placeholder="Nombre de la colonia" value="{{direccion.colonia}}">
+                        <mat-icon matPrefix>place</mat-icon>
+                    </mat-form-field>
+                    <!--Campo Municipio-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Alcaldía</mat-label>
+                        <input type="text" matInput placeholder="Alcaldía / Municipio" value="{{direccion.delegacion_municipio}}">
+                        <mat-icon matPrefix>place</mat-icon>
+                    </mat-form-field>
+                    <!--Campo CP-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>C.P.</mat-label>
+                        <input type="number" matInput placeholder="Código Postal" value="{{direccion.cp}}">
+                        <mat-icon matPrefix>local_post_office</mat-icon>
+                    </mat-form-field>
+                    <!--Campo Ciudad-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Ciudad</mat-label>
+                        <input type="text" matInput placeholder="Ciudad" value="{{direccion.ciudad}}">
+                        <mat-icon matPrefix>place</mat-icon>
+                    </mat-form-field>
+                </div>
+    
+            </mat-expansion-panel>    
+            <!--Cuarto panel-->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Datos Academicos
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Información del trimestre
+                        <mat-icon>school</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+    
+                <div class="form-datos-academicos">
+                    <!--Campo Área de concentración-->
+                    <mat-form-field  class="form-field" appearance="fill">
+                        <mat-label>Área de concentración</mat-label>
+                        <mat-select formControlName="area_concentracion">
+                            <mat-option *ngFor="let item of listAreaConcentracion" [value]="item.id">{{item.area}}</mat-option>
+                        </mat-select>
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                    <!--Campo estado-->
+                    <mat-form-field  class="form-field" appearance="fill">
+                        <mat-label>Estado Académico</mat-label>
+                        <mat-select formControlName="estado_academico">
+                            <mat-option *ngFor="let item of listEstados" [value]="item.id">{{item.estado}}</mat-option>
+                        </mat-select>
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                    <!--Campo plan de estudios-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Clave Plan</mat-label>
+                        <input type="number" matInput placeholder="Clave de plan estudios" formControlName="clave_plan">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                    <!--Campo nivel-->
+                    <mat-form-field  class="form-field" appearance="fill">
+                        <mat-label>Nivel</mat-label>
+                        <mat-select formControlName="nivel">
+                            <mat-option *ngFor="let item of listNiveles" [value]="item.id">{{item.nivel}}</mat-option>
+                        </mat-select>
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                    <!--Campo dedicacion-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Dedicación</mat-label>
+                        <input type="text" matInput placeholder="Tiempo de dedicación" formControlName="dedicacion">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                    <!--Campo año de ingreso-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Año de ingreso</mat-label>
+                        <input type="number" matInput placeholder="Año" formControlName="anio_ingreso">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                    <!--Campo creditos cubiertos-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Créditos Cubiertos</mat-label>
+                        <input type="number" matInput placeholder="No. Creditos" formControlName="creditos_cubiertos">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                    <!--Campo creditos acumulados-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Créditos Acumulados</mat-label>
+                        <input type="number" matInput placeholder="No. Creditos" formControlName="creditos_acumulados">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                    <!--Campo trimestre ingreso-->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Trimestre de ingreso</mat-label>
+                        <mat-select formControlName="trimestre_ingreso">
+                            <mat-option value="P">P</mat-option>
+                            <mat-option value="O">O</mat-option>
+                            <mat-option value="I">I</mat-option>
+                        </mat-select>
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                    <!--Campo ultimo trimestre reinscrito-->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Último trimestre reinscrito</mat-label>
+                        <mat-select formControlName="ultimo_trimestre_inscrito">
+                            <mat-option value="P">P</mat-option>
+                            <mat-option value="O">O</mat-option>
+                            <mat-option value="I">I</mat-option>
+                        </mat-select>
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                    <!--Campo no. trimestres cursados-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Número de trimestres cursados</mat-label>
+                        <input type="number" matInput placeholder="No. trimestres" formControlName="num_trimestres">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                    <!--Campo promedio-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Promedio</mat-label>
+                        <input type="number" matInput placeholder="10.0" formControlName="promedio">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+                </div>
+            </mat-expansion-panel>
+            <!--Quinto panel-->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Datos de procedencia
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Institución de prodedencia
+                        <mat-icon>school</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+    
+                <div class="form-datos-procedencia">
+                    <!--Campo escuela de procedencia-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Institución</mat-label>
+                        <input type="text" matInput placeholder="Institución de procedencia" formControlName="escuela_procedencia">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+    
+                    <!--Campo promedio-->
+                    <mat-form-field class="form-field" appearance="fill">
+                        <mat-label>Promedio</mat-label>
+                        <input type="number" matInput placeholder="9.0" formControlName="datos_ingreso_promedio">
+                        <mat-icon matPrefix>school</mat-icon>
+                    </mat-form-field>
+    
+                    <!--Campo nivel-->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nivel</mat-label>
+                        <mat-select formControlName="datos_ingreso_nivel">
+                            <mat-option value="LICENCIATURA">LICENCIATURA</mat-option>
+                            <mat-option value="MAESTRÍA">MAESTRÍA</mat-option>
+                            <mat-option value="DOCTORADO">DOCTORADO</mat-option>
+                        </mat-select>
+                        <mat-icon matPrefix>person</mat-icon>
+                    </mat-form-field>
+    
+                    <h3 mat-subheader>Adeudos de documentación</h3>
+                    <mat-divider></mat-divider>
+                    <!--Campo adedudos-->
+                    <div class="container-table">
+                        <table mat-table [dataSource]="dataSource" >
+                          
+                            <!-- id Column -->
+                            <ng-container matColumnDef="id">
+                              <th mat-header-cell *matHeaderCellDef> No. </th>
+                              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                            </ng-container>
+                          
+                            <!-- Column -->
+                            <ng-container matColumnDef="documento">
+                              <th mat-header-cell *matHeaderCellDef> Documento </th>
+                              <td mat-cell *matCellDef="let element"> {{element.documento}} </td>
+                            </ng-container>
+                          
+                            <!-- Column -->
+                            <ng-container matColumnDef="tipo">
+                              <th mat-header-cell *matHeaderCellDef> Tipo </th>
+                              <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+                            </ng-container>
+                          
+                            <!-- Column -->
+                            <ng-container matColumnDef="activo">
+                              <th mat-header-cell *matHeaderCellDef> Activo </th>
+                              <td mat-cell *matCellDef="let element"> {{element.activo}} </td>
+                            </ng-container>
+                          
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          </table>                      
+                    </div>
+                </div>
+            </mat-expansion-panel>
+    
+        </mat-accordion>
+    </form>
+   
 </div>

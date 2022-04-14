@@ -1,0 +1,95 @@
+<div class="container">
+    <mat-stepper #stepper>
+        <mat-step [stepControl]="firstFormGroup" errorMessage="Campos vacios.">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Datos del proyecto</ng-template>
+            <!--Campo titulo-->
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Titulo</mat-label>
+                <input type="text" matInput placeholder="Titulo del proyecto" formControlName="titulo" required>
+                <mat-icon matSuffix>edit</mat-icon>
+            </mat-form-field>
+            <!--Campo descripcion-->
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Descripciòn</mat-label>
+                <textarea matInput placeholder="Escribe una breve descripciòn"  formControlName="descripcion" required></textarea>
+            </mat-form-field>
+            <!--Campo tipo-->
+            <mat-form-field appearance="outline" required>
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="tipo">
+                    <mat-option *ngFor="let tipo of listTipoProducto" [value]="tipo.id">{{tipo.tipo}}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>edit</mat-icon>
+            </mat-form-field>
+            <!--Campo fecha publicacion-->
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Fecha de publicación</mat-label>
+                <input type="date" matInput placeholder="2022/01/10" formControlName="fecha_publicacion" required>
+            </mat-form-field>
+            <!--Campo lgac-->
+            <mat-form-field appearance="outline" required>
+                <mat-label>LGAC</mat-label>
+                <mat-select formControlName="lgac">
+                    <mat-option value="1">LGAX</mat-option>
+                    <mat-option value="2">TRABAJO</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>edit</mat-icon>
+            </mat-form-field>
+            <div>
+              <p>Ve a un step diferente para ver el error</p>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" errorMessage="Campos vacios">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Grupo Autores</ng-template>
+            <!--Campo asesores-->
+            <div>
+                <button mat-raised-button (click)="agregarAutor()" color="primary">
+                    Agregar autor
+                </button>
+            </div>
+            <div layout="row" layout-align="center center" formArrayName="autores" class="" *ngFor="let autor of autores.controls; let i = index">
+                <div [formGroupName]="i">
+                    <mat-form-field class="form-field" appearance="outline" >
+                        <mat-label>Autor</mat-label>
+                        <mat-select >
+                            <mat-option *ngFor="let item of listAutores" [value]="item.id">{{item.nombre}}</mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix>edit</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="form-field" appearance="outline" >
+                        <mat-label>Orden</mat-label>
+                        <mat-select >
+                            <mat-option *ngFor="let orden of listOrden" [value]="orden.id">{{orden.orden}}</mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix>edit</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <button mat-raised-button (click)="removerAutor(i)" color="warn">
+                        Remover
+                    </button>
+                </div>
+            </div>
+            <div>
+              <p>Ve a un step diferente para ver el error</p>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Hecho</ng-template>
+          <p>Para concluir el registro de clic en aceptar.</p>
+          <button mat-flat-button (click)="addProduccion()" color="primary">Aceptar</button>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+</div>
+  

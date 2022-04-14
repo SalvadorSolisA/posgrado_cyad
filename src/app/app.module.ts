@@ -25,8 +25,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
+import {MatStepperModule} from '@angular/material/stepper';
 
-import { AutoresDetailComponent } from './components/autores-detail/autores-detail.component';
+import { AutorDetailComponent } from './components/autor-detail/autor-detail.component';
 import { AutorTableComponent } from './components/autor-table/autor-table.component';
 import { ExampleComponent } from './components/example/example.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -56,13 +57,26 @@ import { NivelTableComponent } from './components/nivel-table/nivel-table.compon
 import { NivelDetailComponent } from './components/nivel-detail/nivel-detail.component';
 import { PlanDetailComponent } from './components/plan-detail/plan-detail.component';
 import { PlanTableComponent } from './components/plan-table/plan-table.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ProyectoTableComponent } from './components/proyecto-table/proyecto-table.component';
+import { AspiranteTableComponent } from './components/aspirante-table/aspirante-table.component';
+import { AspiranteDetailComponent } from './components/aspirante-detail/aspirante-detail.component';
+import { ProyectoDetailComponent } from './components/proyecto-detail/proyecto-detail.component';
+import { ProduccionRegisterComponent } from './components/produccion-register/produccion-register.component';
+import { TipoProduccionTableComponent } from './components/tipo-produccion-table/tipo-produccion-table.component';
+import { TipoProduccionDetailComponent } from './components/tipo-produccion-detail/tipo-produccion-detail.component';
+import { OrdenAutorTableComponent } from './components/orden-autor-table/orden-autor-table.component';
+import { OrdenAutorDetailComponent } from './components/orden-autor-detail/orden-autor-detail.component';
+import { TipoProyectoDetailComponent } from './components/tipo-proyecto-detail/tipo-proyecto-detail.component';
+import { TipoProyectoTableComponent } from './components/tipo-proyecto-table/tipo-proyecto-table.component';
+import { ProyectoRegisterComponent } from './components/proyecto-register/proyecto-register.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ProduccionesDetailComponent,
-    AutoresDetailComponent,
+    AutorDetailComponent,
     AutorTableComponent,
     HeaderComponent,
     ExampleComponent,
@@ -92,6 +106,18 @@ import { PlanTableComponent } from './components/plan-table/plan-table.component
     NivelDetailComponent,
     PlanDetailComponent,
     PlanTableComponent,
+    ProyectoTableComponent,
+    AspiranteTableComponent,
+    AspiranteDetailComponent,
+    ProyectoDetailComponent,
+    ProduccionRegisterComponent,
+    TipoProduccionTableComponent,
+    TipoProduccionDetailComponent,
+    OrdenAutorTableComponent,
+    OrdenAutorDetailComponent,
+    TipoProyectoDetailComponent,
+    TipoProyectoTableComponent,
+    ProyectoRegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -119,31 +145,9 @@ import { PlanTableComponent } from './components/plan-table/plan-table.component
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
-    MatChipsModule
-  ],
-  exports:[
-    MatToolbarModule,
-    MatCardModule,
-    MatIconModule,
-    MatTableModule,
-    MatFormFieldModule,
-    FlexLayoutModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatSidenavModule,
-    MatListModule,
-    LayoutModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatSelectModule,
-    MatExpansionModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatChipsModule
+    MatChipsModule,
+    MatNativeDateModule,
+    MatStepperModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

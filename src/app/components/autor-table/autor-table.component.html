@@ -1,20 +1,81 @@
-<div class="container">   
-    <div>
-        <table mat-table [dataSource]="dataSource" matSort>
-    
-        <!-- ID Column -->
-        <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No </th>
-            <td mat-cell *matCellDef="let autor"> {{autor.id}} </td>
-        </ng-container>
-    
-        <!-- Progress Column -->
-        <ng-container matColumnDef="image">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-            <td mat-cell *matCellDef="let autor">{{autor.nombre}}</td>
-        </ng-container>
-    
-        </table>
-    
+<div class="main-content">
+    <div class="header">
+        <h1>{{title}}</h1>
+        <button mat-raised-button (click)="openDialog()" color="primary">
+            <mat-icon>add</mat-icon>
+            Agregar
+        </button>
     </div>
-</div> 
+    <mat-form-field class="filter" appearance="standard">
+        <mat-label><mat-icon matPrefix>search</mat-icon>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="nombre de autor" #input>
+    </mat-form-field>
+    <div class="mat-elevation-z8">
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <!-- numero economico Column -->
+                <ng-container matColumnDef="clave">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>CLAVE</th>
+                    <td mat-cell *matCellDef="let element"> {{element.clave}} </td>
+                </ng-container>
+
+                <!-- nombre Column -->
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>NOMBRE</th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                </ng-container>
+
+                <!-- apellido paterno Column -->
+                <ng-container matColumnDef="ap_paterno">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>APELLIDO PATERNO</th>
+                    <td mat-cell *matCellDef="let element"> {{element.ap_paterno}} </td>
+                </ng-container>
+
+                <!-- apellido materno Column -->
+                <ng-container matColumnDef="ap_materno">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>APELLIDO MATERNO</th>
+                    <td mat-cell *matCellDef="let element"> {{element.ap_materno}} </td>
+                </ng-container>
+                
+                <!-- activo Column -->
+                <ng-container matColumnDef="activo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTIVO </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="chip">
+                            {{element.activo}}
+                        </div>
+                    </td>
+                </ng-container>
+                
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button (click)="editAutor(row)" color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="deleteAutor(row.id)" color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+        </div>
+        <mat-paginator [length]="resultsLength" [pageSize]="5" aria-label="Select page of autores"></mat-paginator>
+    </div>
+</div>

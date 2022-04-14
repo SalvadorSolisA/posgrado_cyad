@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CyadService } from 'src/app/service/cyad.service';
-import { Produccion } from "src/app/interfaces/produccion";
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-producciones-table',
@@ -12,40 +12,32 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class ProduccionesTableComponent implements OnInit {
 
-  displayedColumns: String[] = ['id','clave_producto','titulo','fecha_publicacion','lgac'];
+  title: string = "Producciones";
+  displayedColumns: String[] = ['id','clave_producto','titulo','fecha_publicacion','lgac','tipo','activo','action'];
   data: any[] = [];
   dataSource = new MatTableDataSource<any>(this.data);
+  resultsLength: number = 0;
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   
   constructor(private cyadService: CyadService, private router : Router) { }
 
   ngOnInit(): void {
-    this.getProducciones();
+    this.getAllProducciones();
   }
 
-  getProducciones() {
-    let produccionData;
-
-    this.cyadService.getProducciones().subscribe(
-      res => {
-        res.forEach((produccion: Produccion) => {
-          produccionData = {
-            id: produccion.id,
-            clave_producto: produccion.clave_producto,
-            titulo: produccion.titulo,
-            fecha_publicacion: produccion.fecha_publicacion,
-            lgac: produccion.lgac
-          };
-          this.data.push(produccionData);
-          this.dataSource = new MatTableDataSource<any>(this.data);
-        });
-        console.log(res);
+  getAllProducciones() {
+    this.cyadService.getProducciones().subscribe({
+      next:(res)=>{
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
-      err => {
+      error:(err)=>{
         console.error(err);
       }
-    );
+    });
   }
 
   applyFilter(event : Event) {
@@ -59,6 +51,27 @@ export class ProduccionesTableComponent implements OnInit {
 
   getRow(row: any) {
     this.router.navigateByUrl(`produccionDetail/${row.id}`);
+  }
+
+  registerProduccion(){
+    this.router.navigateByUrl('produccion-register');
+  }
+
+  editProduccion(row: any){
+    this.router.navigateByUrl(`produccionDetail/${row.id}`);
+  }
+
+  deleteProduccion(id: number){
+    this.cyadService.deleteProduccion(id).subscribe({
+      next:(res)=>{
+        alert("produccion Delete Successfully");
+        this.getAllProducciones();
+      },
+      error:(err)=>{
+        alert("Error while deleting the produccion");
+        console.error(err);
+      }
+    });
   }
 
 }

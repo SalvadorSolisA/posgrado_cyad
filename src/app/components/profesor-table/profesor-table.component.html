@@ -1,43 +1,81 @@
-<div class="container">
-    <div class="filtro">
-        <mat-form-field appearance="standard">
-            <mat-label>Filtrar</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Nombre del Profesor" #input>
-        </mat-form-field>
+<div class="main-content">
+    <div class="header">
+        <h1>{{title}}</h1>
+        <button mat-raised-button (click)="openDialog()" color="primary">
+            <mat-icon>add</mat-icon>
+            Agregar
+        </button>
     </div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-        <!-- id Column -->
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>No.</th>
-            <td mat-cell *matCellDef="let element">{{element.id}}</td>
-        </ng-container>
-    
-        <!-- Numero Economico Column -->
-        <ng-container matColumnDef="numero_eco">
-            <th mat-header-cell *matHeaderCellDef>Num. Economico</th>
-            <td mat-cell *matCellDef="let element">{{element.numero_eco}}</td>
-        </ng-container>
-    
-        <!-- Name Column -->
-        <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef>Nombre</th>
-            <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
-        </ng-container>
-        <!-- Apellido Paterno Column -->
-        <ng-container matColumnDef="apellido_pat">
-            <th mat-header-cell *matHeaderCellDef>Apellido Paterno</th>
-            <td mat-cell *matCellDef="let element">{{element.apellido_pat}}</td>
-        </ng-container>
-    
-        <!-- Apellido Materno Column -->
-        <ng-container matColumnDef="apellido_mat">
-            <th mat-header-cell *matHeaderCellDef>Apellido Materno</th>
-            <td mat-cell *matCellDef="let element">{{element.apellido_mat}}</td>
-        </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row (click)="getRow(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    
-    <mat-paginator class="mat-elevation-z8" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <mat-form-field class="filter" appearance="standard">
+        <mat-label><mat-icon matPrefix>search</mat-icon>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Profesor" #input>
+    </mat-form-field>
+    <div class="mat-elevation-z8">
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <!-- numero economico Column -->
+                <ng-container matColumnDef="numero_eco">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NÚMERO ECONOMICO</th>
+                    <td mat-cell *matCellDef="let element"> {{element.numero_economico}} </td>
+                </ng-container>
+
+                <!-- nombre Column -->
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>NOMBRE</th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                </ng-container>
+
+                <!-- apellido paterno Column -->
+                <ng-container matColumnDef="apellido_pat">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>APELLIDO PATERNO</th>
+                    <td mat-cell *matCellDef="let element"> {{element.ap_paterno}} </td>
+                </ng-container>
+
+                <!-- apellido materno Column -->
+                <ng-container matColumnDef="apellido_mat">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>APELLIDO MATERNO</th>
+                    <td mat-cell *matCellDef="let element"> {{element.ap_materno}} </td>
+                </ng-container>
+                
+                <!-- activo Column -->
+                <ng-container matColumnDef="activo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTIVO </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="chip">
+                            {{element.activo}}
+                        </div>
+                    </td>
+                </ng-container>
+                
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button (click)="editInstitucion(row)" color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="deleteInstitucion(row.id)" color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+        </div>
+        <mat-paginator [length]="resultsLength" [pageSize]="5" aria-label="Select page of instituciones"></mat-paginator>
+    </div>
 </div>

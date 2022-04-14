@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder,Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AreaConcentracion } from 'src/app/interfaces/AreaConcentracion';
+import { AreaConcentracion } from 'src/app/interfaces/area-concentracion';
 import { CyadService } from 'src/app/service/cyad.service';
 
 @Component({

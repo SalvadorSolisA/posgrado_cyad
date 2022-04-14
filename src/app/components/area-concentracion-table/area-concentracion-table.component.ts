@@ -4,7 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { AreaConcentracion } from 'src/app/interfaces/AreaConcentracion';
 import { CyadService } from 'src/app/service/cyad.service';
 import { AreaConcentracionDetailComponent } from '../area-concentracion-detail/area-concentracion-detail.component';
 

@@ -1,38 +1,59 @@
-<div class="contenedor">
-    <mat-card class="profesor-card">
-        <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Shiba Inu</mat-card-title>
-            <mat-card-subtitle>Profesor</mat-card-subtitle>
-        </mat-card-header>
-        
-        <mat-card-content>
-            <form class="input-form">
-                <mat-form-field class="input-full-width" appearance="fill">
-                    <mat-label>Numero Economico</mat-label>
-                    <input matInput placeholder="Nombre Profesor" value="Sushi">
-                </mat-form-field>
-                <mat-form-field class="input-full-width" appearance="fill">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput placeholder="Nombre Profesor" value="Sushi">
-                </mat-form-field>
-                <mat-form-field class="input-full-width" appearance="fill">
-                    <mat-label>CVU</mat-label>
-                    <input matInput placeholder="Nombre Profesor" value="Sushi">
-                </mat-form-field>
-                <mat-form-field class="input-full-width" appearance="fill">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput placeholder="Nombre Profesor" value="Sushi">
-                </mat-form-field>
-                <mat-form-field class="input-full-width" appearance="fill">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput placeholder="Nombre Profesor" value="Sushi">
-                </mat-form-field>                                
-            </form>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-        </mat-card-actions>
-    </mat-card>
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+    <form  [formGroup]="areaForm" >
+        <mat-form-field  form appearance="fill">
+            <mat-label>Id</mat-label>
+            <input matInput formControlName="id" placeholder="ID"/>
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>CVU</mat-label>
+            <input formControlName="cvu" matInput placeholder="cvu" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Número económico</mat-label>
+            <input formControlName="numero_economico" matInput placeholder="Número económico" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input formControlName="nombre" matInput placeholder="Nombre del profesor" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Apellido Paterno</mat-label>
+            <input formControlName="ap_paterno" matInput placeholder="Apellido paterno del profesor" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Apellido Materno</mat-label>
+            <input formControlName="ap_materno" matInput placeholder="Apellido materno del profesor" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Institución de procedencia</mat-label>
+            <input formControlName="institucion" matInput placeholder="Institución" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Divsión</mat-label>
+            <input formControlName="division" matInput placeholder="Division" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Departamento</mat-label>
+            <input formControlName="departamento" matInput placeholder="Departamento" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Área de investigación</mat-label>
+            <input formControlName="area_investigacion" matInput placeholder="Área de investigación" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
+    <button mat-raised-button color="primary" mat-dialog-close (click)="addProfesor()">{{actionBtn}}</button>
 </div>
