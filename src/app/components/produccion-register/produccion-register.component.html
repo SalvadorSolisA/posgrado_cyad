@@ -46,29 +46,29 @@
           <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel>Grupo Autores</ng-template>
             <!--Campo asesores-->
-            <div>
+            <div class="button-agregar">
                 <button mat-raised-button (click)="agregarAutor()" color="primary">
                     Agregar autor
                 </button>
             </div>
-            <div layout="row" layout-align="center center" formArrayName="autores" class="" *ngFor="let autor of autores.controls; let i = index">
-                <div [formGroupName]="i">
-                    <mat-form-field class="form-field" appearance="outline" >
+            <div formArrayName="autores" class="list-autores" *ngFor="let autor of autores.controls; let i = index">
+                <div class="input" [formGroupName]="i">
+                    <mat-form-field class="form-field-autor" appearance="outline" >
                         <mat-label>Autor</mat-label>
-                        <mat-select >
+                        <mat-select formControlName="autor">
                             <mat-option *ngFor="let item of listAutores" [value]="item.id">{{item.nombre}}</mat-option>
                         </mat-select>
                         <mat-icon matSuffix>edit</mat-icon>
                     </mat-form-field>
-                    <mat-form-field class="form-field" appearance="outline" >
+                    <mat-form-field class="form-field-orden" appearance="outline" >
                         <mat-label>Orden</mat-label>
-                        <mat-select >
+                        <mat-select formControlName="orden">
                             <mat-option *ngFor="let orden of listOrden" [value]="orden.id">{{orden.orden}}</mat-option>
                         </mat-select>
                         <mat-icon matSuffix>edit</mat-icon>
                     </mat-form-field>
                 </div>
-                <div>
+                <div class="button">
                     <button mat-raised-button (click)="removerAutor(i)" color="warn">
                         Remover
                     </button>
@@ -82,14 +82,27 @@
           </form>
         </mat-step>
         <mat-step>
-          <ng-template matStepLabel>Hecho</ng-template>
-          <p>Para concluir el registro de clic en aceptar.</p>
-          <button mat-flat-button (click)="addProduccion()" color="primary">Aceptar</button>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
-          </div>
-        </mat-step>
+            <ng-template matStepLabel>Documento</ng-template>
+            <div class="button-aceptar">
+                <p>De click en boton para cargar el documento probatorio deberá estar en formato PDF</p>
+                <button type="button" mat-raised-button color="warn" (click)="fileInput.click()">Seleccionar Archivo</button>
+                <input accept="application/pdf"  hidden class="form-control" type="file" #fileInput (change)="onChange($event)">
+            
+                <!--aqui se usa la variable bandera-->
+                <div class="loading" *ngIf="loading">
+                    <h3>El archivo se cargo con exito.</h3>
+                    <mat-icon>check</mat-icon>
+                </div>
+            </div>
+            <div class="button-aceptar">
+                <p>Para concluir el registro de clic en registrar.</p>
+                <button mat-flat-button (click)="addProduccion()" color="primary">Registrar Produción</button>
+              </div>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+          </mat-step>
       </mat-stepper>
 </div>
   

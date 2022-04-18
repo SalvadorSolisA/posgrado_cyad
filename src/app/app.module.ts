@@ -70,6 +70,7 @@ import { OrdenAutorDetailComponent } from './components/orden-autor-detail/orden
 import { TipoProyectoDetailComponent } from './components/tipo-proyecto-detail/tipo-proyecto-detail.component';
 import { TipoProyectoTableComponent } from './components/tipo-proyecto-table/tipo-proyecto-table.component';
 import { ProyectoRegisterComponent } from './components/proyecto-register/proyecto-register.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -118,6 +119,7 @@ import { ProyectoRegisterComponent } from './components/proyecto-register/proyec
     TipoProyectoDetailComponent,
     TipoProyectoTableComponent,
     ProyectoRegisterComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

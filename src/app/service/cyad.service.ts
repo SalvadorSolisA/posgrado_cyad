@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -12,6 +12,7 @@ import { Direccion } from '../interfaces/direccion';
 import { Division } from '../interfaces/division';
 import { EstadoAcademico } from '../interfaces/estado-academico';
 import { EstadoAspirante } from '../interfaces/estado-aspirante';
+import { GrupoAutores } from '../interfaces/grupo-autores';
 import { GrupoProtocolo } from '../interfaces/grupo-protocolo';
 import { Institucion } from '../interfaces/institucion';
 import { Nivel } from '../interfaces/nivel';
@@ -86,20 +87,49 @@ export class CyadService {
   }
 
   public getProduccionDetail(index: number){
-    return this.http.get<Produccion>( this.baseUrl + `/producciones/${index}`);
+    return this.http.get<Produccion>( this.baseUrl + `/produccion/${index}`);
   }
 
   public postProduccion(prod: any){
-    console.log('data enviada: ', prod);
     return this.http.post<Produccion>(this.baseUrl+'/produccion',prod);
   }
 
-  public putProduccion(prod: Produccion){
+  public putProduccion(prod: any){
     return this.http.put<Produccion>(this.baseUrl+`/produccionUpdate`,prod);
   }
 
   public deleteProduccion(id: number){
     return this.http.delete<Produccion>(this.baseUrl+`/produccion/?id=${id}`);
+  }
+
+  public upload(produccion : any, file : File, grupo_autores : any[]) {
+    //auxiliar
+    let product : Produccion;
+    //registrando datos de la produccion
+    this.http.post<Produccion>(this.baseUrl+'/produccion',produccion).subscribe({
+      next:(res)=>{
+        product = res;
+
+        // creando formdata
+        const formData = new FormData();
+        //almacena el archivo como "file"
+        formData.append("file", file);
+        // haciendo la petición para cargararchivo en bd
+        this.http.post<number>(`${this.baseUrl}/produccion-upload?id=${product.id}`,formData).subscribe({
+          next:(res)=>{
+            //actualizando el id
+            for (let i = 0; i < grupo_autores.length; i++) {
+              grupo_autores[i].produccion.id = res;
+              this.postGruposAutores(grupo_autores[i]).subscribe({
+                next:(res)=>{
+                  console.log('agregando al grupo de autores',res);
+                }
+              });//post grupo de autores
+            }
+          }
+        });//post archivo
+      }
+    });//post produccion
   }
 
   //REST proyectos
@@ -451,7 +481,6 @@ export class CyadService {
   }
 
   public postAutor(autor: any) {
-    console.log('data enviada  ',autor);
     return this.http.post<Autor>(this.baseUrl + '/autor', autor);
   }
 
@@ -461,6 +490,29 @@ export class CyadService {
 
   public deleteAutor(id: number) {
     return this.http.delete<Autor>(this.baseUrl + `/autor?id=${id}`);
+  }
+
+  //REST grupo Autores
+
+  public getGruposAutores(): Observable<any> {
+    return this.http.get<GrupoAutores>(this.baseUrl + '/allGruposAutores');
+  }
+
+  public getGruposAutoresDetail(index: number) {
+    return this.http.get<GrupoAutores>(this.baseUrl + `/allGruposAutores/${index}`);
+  }
+
+  public postGruposAutores(g_autor: any) {
+    console.log('data enviada  a grupo autores',g_autor);
+    return this.http.post<GrupoAutores>(this.baseUrl + '/grupoAutores', g_autor);
+  }
+
+  public putGruposAutores(g_autor: GrupoAutores) {
+    return this.http.put<GrupoAutores>(this.baseUrl + `/grupoAutoresUpdate/`, g_autor);
+  }
+
+  public deleteGruposAutores(id: number) {
+    return this.http.delete<GrupoAutores>(this.baseUrl + `/grupoAutores?id=${id}`);
   }
 
   //REST Orden autor
@@ -527,6 +579,22 @@ export class CyadService {
 
   public deleteTipoProduccion(id: number) {
     return this.http.delete<TipoProduccion>(this.baseUrl + `/tipoProduccion?id=${id}`);
+  }
+
+  public upload2( file : File): Observable<any> {
+    // creando formdata
+    const formData = new FormData();
+
+    //almacena el archivo como "file"
+    formData.append("file", file);
+
+    // http post request over api
+    // con formData as req
+    const req = new HttpRequest('POST',`${this.baseUrl}/produccion`,formData,{
+      reportProgress:true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
   }
 
 }

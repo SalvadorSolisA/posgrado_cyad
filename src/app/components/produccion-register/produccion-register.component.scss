@@ -1,0 +1,77 @@
+.container{
+    width: 80%;
+    margin-top: 10px;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%,0%);
+}
+
+.mat-form-field {
+    padding: 0%;
+    margin-top: 3px;
+    width: 80%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0%);
+}
+
+.button-agregar{
+    margin-left: 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.list-autores{
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0%);
+}
+
+.list-autores .input{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.form-field-autor{
+    width: 60%;
+    position: relative;
+    top: 60%;
+    transform: translate(-80%,-50%);
+}
+
+.form-field-orden{
+    width: 30%;
+    position: relative;
+    left: 20% ;
+    top: 50%;
+    transform: translate(-50%,-40%);
+}
+
+.list-autores .input .mat-form-field{
+    margin-right: 5px;
+}
+
+.list-autores .button button{
+    position: relative;
+    left: 10%;
+    top: 50%;
+    transform: translate(0%,-50%);
+}
+
+.loading{
+    margin-top: 5px;
+    color: #01C747;
+}
+
+.button-aceptar{
+    margin-top: 10px;
+    text-align: center;
+}

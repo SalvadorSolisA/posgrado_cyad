@@ -27,12 +27,8 @@ import { AutorTableComponent } from './components/autor-table/autor-table.compon
 import { TipoProyectoTableComponent } from './components/tipo-proyecto-table/tipo-proyecto-table.component';
 import { ProyectoRegisterComponent } from './components/proyecto-register/proyecto-register.component';
 
+
 const routes: Routes = [
-  {
-    path:'home',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
   {path:'alumnos',component:AlumnoTableComponent},
   {path:'alumnoDetail/:id',component:AlumnoDetailComponent},
   {path:'alumnoDetail',component:AlumnoDetailComponent},

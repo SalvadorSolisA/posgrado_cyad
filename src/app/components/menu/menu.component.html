@@ -5,14 +5,14 @@
         [opened]="(isHandset$ | async) === true">
       <mat-toolbar>Menu</mat-toolbar>
       <mat-nav-list>
-        <a mat-list-item routerLink="proyecto-register"><mat-icon mat-list-icon>library_add</mat-icon>Registrar Proyecto</a>
-        <a mat-list-item routerLink="produccion-register"><mat-icon mat-list-icon>library_add</mat-icon>Registrar Producción</a>
-        <a mat-list-item routerLink="alumnos"><mat-icon mat-list-icon>people</mat-icon>Alumnos</a>
-        <a mat-list-item routerLink="aspirantes"><mat-icon mat-list-icon>people</mat-icon>Aspirantes</a>
-        <a mat-list-item routerLink="autores"><mat-icon mat-list-icon>people</mat-icon>Autores</a>
-        <a mat-list-item routerLink="producciones"><mat-icon mat-list-icon>class</mat-icon>Producciones</a>
-        <a mat-list-item routerLink="proyectos"><mat-icon mat-list-icon>class</mat-icon>Proyectos</a>
-        <a mat-list-item routerLink="profesores"><mat-icon mat-list-icon>people</mat-icon>Profesores</a>
+        <a mat-list-item routerLink="proyecto-register" (click)="drawer.toggle()"><mat-icon mat-list-icon>library_add</mat-icon>Registrar Proyecto</a>
+        <a mat-list-item routerLink="produccion-register" (click)="drawer.toggle()"><mat-icon mat-list-icon>library_add</mat-icon>Registrar Producción</a>
+        <a mat-list-item routerLink="alumnos" (click)="drawer.toggle()"><mat-icon mat-list-icon >people</mat-icon>Alumnos</a>
+        <a mat-list-item routerLink="aspirantes" (click)="drawer.toggle()"><mat-icon mat-list-icon>people</mat-icon>Aspirantes</a>
+        <a mat-list-item routerLink="autores" (click)="drawer.toggle()"><mat-icon mat-list-icon>people</mat-icon>Autores</a>
+        <a mat-list-item routerLink="producciones" (click)="drawer.toggle()"><mat-icon mat-list-icon>class</mat-icon>Producciones</a>
+        <a mat-list-item routerLink="proyectos" (click)="drawer.toggle()"><mat-icon mat-list-icon>class</mat-icon>Proyectos</a>
+        <a mat-list-item routerLink="profesores" (click)="drawer.toggle()"><mat-icon mat-list-icon>people</mat-icon>Profesores</a>
         <mat-expansion-panel mat-list-item>
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -22,18 +22,18 @@
           </mat-expansion-panel-header>
           <!--Componentes menu-->
           <mat-nav-list class="nav-expansion-panel">
-            <a mat-list-item routerLink="areas-concentracion">Area de Concentración</a>
-            <a mat-list-item routerLink="areas-investigacion">Area de Investigación</a>
-            <a mat-list-item routerLink="departamentos">Departamentos</a>
-            <a mat-list-item routerLink="divisiones">Divisiones</a>
-            <a mat-list-item routerLink="estados-academicos">Estado Academico</a>
-            <a mat-list-item routerLink="estados-aspirantes">Estado de Aspirante</a>
-            <a mat-list-item routerLink="instituciones">Institucion procedencia</a>
-            <a mat-list-item routerLink="niveles">Nivel</a>
-            <a mat-list-item routerLink="planes">Plan de Estudio</a>
-            <a mat-list-item routerLink="orden-autores">Orden de autores</a>
-            <a mat-list-item routerLink="tipo-produccion">Tipos de producciones</a>
-            <a mat-list-item routerLink="tipo-proyecto">Tipos de proyecto</a>
+            <a mat-list-item routerLink="areas-concentracion" (click)="drawer.toggle()" >Area de Concentración</a>
+            <a mat-list-item routerLink="areas-investigacion" (click)="drawer.toggle()">Area de Investigación</a>
+            <a mat-list-item routerLink="departamentos" (click)="drawer.toggle()">Departamentos</a>
+            <a mat-list-item routerLink="divisiones" (click)="drawer.toggle()">Divisiones</a>
+            <a mat-list-item routerLink="estados-academicos" (click)="drawer.toggle()">Estado Academico</a>
+            <a mat-list-item routerLink="estados-aspirantes" (click)="drawer.toggle()">Estado de Aspirante</a>
+            <a mat-list-item routerLink="instituciones" (click)="drawer.toggle()">Institucion procedencia</a>
+            <a mat-list-item routerLink="niveles" (click)="drawer.toggle()">Nivel</a>
+            <a mat-list-item routerLink="planes" (click)="drawer.toggle()">Plan de Estudio</a>
+            <a mat-list-item routerLink="orden-autores" (click)="drawer.toggle()">Orden de autores</a>
+            <a mat-list-item routerLink="tipo-produccion" (click)="drawer.toggle()">Tipos de producciones</a>
+            <a mat-list-item routerLink="tipo-proyecto" (click)="drawer.toggle()">Tipos de proyecto</a>
           </mat-nav-list>
         </mat-expansion-panel>
       </mat-nav-list>
@@ -41,21 +41,11 @@
     <mat-sidenav-content>
       <mat-toolbar color="primary">
         <button mat-icon-button aria-label="Toggle sidenav" color="white" (click)="drawer.toggle()"><mat-icon aria-label="Side nav toggle icon">menu</mat-icon></button>
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-        <span>CyAD</span>
+        <img src="../../../assets/images/logo_cyad.png" width="80" height="40">
       </mat-toolbar>
-      <!-- Add Content Here -->
       <div class="outlet">
         <router-outlet></router-outlet>
-      </div>
-      
+    </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
 

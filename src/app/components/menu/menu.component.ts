@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MatAccordion } from '@angular/material/expansion';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -18,7 +19,7 @@ export class MenuComponent implements OnInit {
 
   @ViewChild(MatAccordion) accordion!: MatAccordion;
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver, private router : Router) { }
 
   ngOnInit(): void {
   }
