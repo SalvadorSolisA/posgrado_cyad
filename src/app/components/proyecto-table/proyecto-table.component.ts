@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { CyadService } from 'src/app/service/cyad.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class ProyectoTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(private cyadService : CyadService, private dialog: MatDialog) { }
+  constructor(private cyadService : CyadService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllProfesores();
@@ -49,8 +49,8 @@ export class ProyectoTableComponent implements OnInit {
     }
   }
 
-  openDialog(){
-
+  registerProyecto(){
+    this.router.navigateByUrl('produccion-register');
   }
 
   editProyecto(row: any){

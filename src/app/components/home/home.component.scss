@@ -1,0 +1,41 @@
+@import "../../../assets/styles/variables.scss";
+
+.grid-container {
+  margin: 20px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+
+.card-datos-generales{
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.card-datos-generales-content{
+  text-align: left;
+  font-size: 16px;
+}
+
+.card-datos-generales img{
+  padding-left: 25%;
+  width: 50%;
+  height: 150px;
+}
+
+.text-negritas{
+  font-weight: bold;
+  color: $uam;
+}

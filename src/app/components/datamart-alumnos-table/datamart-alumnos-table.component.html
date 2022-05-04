@@ -1,0 +1,59 @@
+
+<div class="main-content">
+        <mat-form-field class="filter" appearance="standard">
+            <mat-label><mat-icon matPrefix>search</mat-icon>Buscar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Nombre del alumno" #input>
+        </mat-form-field>
+    <div class="mat-elevation-z8">
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <!-- Nombre Column -->
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                </ng-container>
+
+                <!-- Apellido paterno Column -->
+                <ng-container matColumnDef="ap_paterno">
+                    <th class="prioridad-3" mat-header-cell *matHeaderCellDef mat-sort-header> APELLIDO PATERNO </th>
+                    <td class="prioridad-3" mat-cell *matCellDef="let element"> {{element.ap_paterno}} </td>
+                </ng-container>
+
+                <!-- Apellido materno Column -->
+                <ng-container class="prioridad-3" matColumnDef="ap_materno">
+                    <th class="prioridad-3" mat-header-cell *matHeaderCellDef mat-sort-header> APELLIDO MATERNO </th>
+                    <td class="prioridad-3" mat-cell *matCellDef="let element"> {{element.ap_materno}} </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button (click)="getRow(row)" color="primary">
+                            <mat-icon>remove_red_eye</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="getRow(row)" color="warn">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                <tr mat-row (click)="getRow(row)" *matRowDef="let row; columns: displayColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+        </div>
+        <mat-paginator [length]="resultsLength" [pageSize]="5" aria-label="Select page of alumnos"></mat-paginator>
+    </div>
+</div>

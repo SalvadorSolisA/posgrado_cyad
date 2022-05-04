@@ -1,0 +1,46 @@
+@import "../../../assets/styles/variables.scss";
+
+  .main-content{
+    width: 100%;
+  }
+  
+ 
+
+  table {
+    text-align: center;
+    width: 100%;
+  }
+  
+  //encabezados columna
+  ::ng-deep .mat-header-cell{
+    text-align: center !important;
+  }
+
+  //filtro
+  .filter{
+    font-size: 15px;
+    width: 100%;
+  }
+
+  .chip{
+    height: 20px;
+    width: 50px;
+    color: white;
+    background-color: $acent;
+    border-radius: 12px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  //ocultando columnas
+  @media screen and (min-width:200px) and (max-width:300px){
+    body{
+      font-size: 8px;
+    }
+
+    .prioridad-3{
+      display: none;
+    }
+  }

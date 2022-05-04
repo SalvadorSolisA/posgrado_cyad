@@ -1,0 +1,51 @@
+<div class="grid-container">
+  <h1 class="mat-h1">DATAMART</h1>
+  <mat-grid-list cols="2" rowHeight="350px">
+
+    <mat-grid-tile [colspan]=2 [rowspan]=1>
+      <mat-card class="card-datos-generales">
+        <mat-card-header>
+          <mat-card-title>Historiales</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <app-datamart-alumnos-table (idEmitido)="getIdSelect($event)"></app-datamart-alumnos-table>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]=1 [rowspan]=2>
+      <mat-card class="card-datos-generales">
+        <mat-card-header>
+          <mat-card-title>Datos Generales</mat-card-title>
+          <mat-card-subtitle>{{nombre}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="../../../assets/images/credencial-uamita-2.PNG" alt="uam">
+        <mat-card-content class="card-datos-generales-content">
+          <p class="text-negritas">Escuela de Procedencia: </p>
+          <p >{{escuela_procedencia}}</p>
+          <p class="text-negritas">Trimestre de ingreso: </p>
+          <p >{{trimestre_ingreso}}</p>
+          <p class="text-negritas">Trimestre de egreso: </p>
+          <p >{{trimestre_egreso}}</p>
+          <p class="text-negritas">Fecha de examen / disertación: </p>
+          <p >{{fecha_examen_disertacion}}</p>
+          <p class="text-negritas">Proyecto:</p>
+          <p >{{proyecto}}</p>
+          <p class="text-negritas">Grupo protocolo:</p>
+          <p *ngFor="let participante of participantes">{{participante.rol}} &nbsp;&nbsp;&nbsp;&nbsp; {{participante.nombre}} &nbsp; {{participante.ap_paterno}} &nbsp; {{participante.ap_materno}}</p>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]=1 [rowspan]=2>
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>Historial Academico</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <app-datamart-historial-table></app-datamart-historial-table>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

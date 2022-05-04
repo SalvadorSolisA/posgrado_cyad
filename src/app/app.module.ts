@@ -29,7 +29,6 @@ import {MatStepperModule} from '@angular/material/stepper';
 
 import { AutorDetailComponent } from './components/autor-detail/autor-detail.component';
 import { AutorTableComponent } from './components/autor-table/autor-table.component';
-import { ExampleComponent } from './components/example/example.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { AlumnoTableComponent } from './components/alumno-table/alumno-table.component';
 import { ProfesorTableComponent } from './components/profesor-table/profesor-table.component';
@@ -71,6 +70,10 @@ import { TipoProyectoDetailComponent } from './components/tipo-proyecto-detail/t
 import { TipoProyectoTableComponent } from './components/tipo-proyecto-table/tipo-proyecto-table.component';
 import { ProyectoRegisterComponent } from './components/proyecto-register/proyecto-register.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { DatamartAlumnosTableComponent } from './components/datamart-alumnos-table/datamart-alumnos-table.component';
+import { DatamartHistorialTableComponent } from './components/datamart-historial-table/datamart-historial-table.component';
 
 
 @NgModule({
@@ -80,7 +83,6 @@ import { FooterComponent } from './components/footer/footer.component';
     AutorDetailComponent,
     AutorTableComponent,
     HeaderComponent,
-    ExampleComponent,
     MenuComponent,
     AlumnoTableComponent,
     ProfesorTableComponent,
@@ -120,6 +122,9 @@ import { FooterComponent } from './components/footer/footer.component';
     TipoProyectoTableComponent,
     ProyectoRegisterComponent,
     FooterComponent,
+    HomeComponent,
+    DatamartAlumnosTableComponent,
+    DatamartHistorialTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -149,7 +154,8 @@ import { FooterComponent } from './components/footer/footer.component';
     FormsModule,
     MatChipsModule,
     MatNativeDateModule,
-    MatStepperModule 
+    MatStepperModule,
+    MatGridListModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

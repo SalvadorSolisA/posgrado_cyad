@@ -26,9 +26,12 @@ import { TipoProduccionTableComponent } from './components/tipo-produccion-table
 import { AutorTableComponent } from './components/autor-table/autor-table.component';
 import { TipoProyectoTableComponent } from './components/tipo-proyecto-table/tipo-proyecto-table.component';
 import { ProyectoRegisterComponent } from './components/proyecto-register/proyecto-register.component';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
+  {path:'home',component:HomeComponent},
   {path:'alumnos',component:AlumnoTableComponent},
   {path:'alumnoDetail/:id',component:AlumnoDetailComponent},
   {path:'alumnoDetail',component:AlumnoDetailComponent},
@@ -57,6 +60,8 @@ const routes: Routes = [
   {path:'orden-autores',component: OrdenAutorTableComponent},
   {path:'tipo-produccion',component: TipoProduccionTableComponent},
   {path:'tipo-proyecto',component: TipoProyectoTableComponent},
+  {path: '',pathMatch:'full',redirectTo:'home'},
+  {path: '**',pathMatch:'full',redirectTo:'home'}
 ];
 
 @NgModule({

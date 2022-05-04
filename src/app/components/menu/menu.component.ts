@@ -24,4 +24,8 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  home(){
+    this.router.navigateByUrl('home');
+  }
+
 }

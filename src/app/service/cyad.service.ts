@@ -1,6 +1,6 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { Observable, retry } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Alumno } from '../interfaces/alumno';
 import { AreaConcentracion } from '../interfaces/area-concentracion';
@@ -31,7 +31,7 @@ import { TipoProyecto } from '../interfaces/tipo-proyecto';
 })
 export class CyadService {
 
-  private baseUrl = environment.baseUrl;//"https://a203f053-e95a-4622-9ad4-1fb5435d9a5e.mock.pstmn.io";//environment.baseUrl;
+  private baseUrl = environment.baseUrl;
 
   @Output() disparadorData:EventEmitter<any> = new EventEmitter();
   
@@ -595,6 +595,15 @@ export class CyadService {
       responseType: 'json'
     });
     return this.http.request(req);
+  }
+
+  ///REST Datamart
+  public getAlumnosDatamart(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '/datamart/alumnos');
+  }
+
+  public getAlumnoDetailDatamart(index: number) {
+    return this.http.get<any>(this.baseUrl + `/datamart/alumno/${index}`);
   }
 
 }
