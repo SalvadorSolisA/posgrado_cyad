@@ -194,7 +194,7 @@
                             <mat-icon matPrefix>place</mat-icon>
                         </mat-form-field>
                         <!--Campo número-->
-                        <mat-form-field class="form-field" appearance="fill">
+                        <mat-form-field class="form-field-numero" appearance="fill">
                             <mat-label>No.</mat-label>
                             <input formControlName="numero" type="number" matInput placeholder="Número">
                             <mat-icon matPrefix>place</mat-icon>
@@ -208,11 +208,11 @@
                         <!--Campo Municipio-->
                         <mat-form-field class="form-field" appearance="fill">
                             <mat-label>Alcaldía</mat-label>
-                            <input formControlName="alcaldia" type="text" matInput placeholder="Alcaldía / Municipio">
+                            <input formControlName="delegacion_municipio" type="text" matInput placeholder="Alcaldía / Municipio">
                             <mat-icon matPrefix>place</mat-icon>
                         </mat-form-field>
                         <!--Campo CP-->
-                        <mat-form-field class="form-field" appearance="fill">
+                        <mat-form-field class="form-field-numero" appearance="fill">
                             <mat-label>C.P.</mat-label>
                             <input formControlName="cp" type="number" matInput placeholder="Código Postal">
                             <mat-icon matPrefix>local_post_office</mat-icon>
@@ -224,9 +224,11 @@
                             <mat-icon matPrefix>place</mat-icon>
                         </mat-form-field>
                     </div>
-                    <button mat-raised-button (click)="removerDireccion(i)" color="warn">
-                        Remover
-                    </button>
+                    <div class="button-remover">
+                        <button mat-raised-button (click)="removerDireccion(i)" color="warn">
+                            Remover
+                        </button>
+                    </div>
                 </div>
 
             </mat-expansion-panel>

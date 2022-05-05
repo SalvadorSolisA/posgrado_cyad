@@ -7,6 +7,7 @@ import { AreaConcentracion } from '../interfaces/area-concentracion';
 import { AreaInvestigacion } from '../interfaces/areaInvestiongacion';
 import { Aspirante } from '../interfaces/aspirante';
 import { Autor } from '../interfaces/autor';
+import { Correo } from '../interfaces/correo';
 import { DatosAcademicos } from '../interfaces/datos-academicos';
 import { DatosIngreso } from '../interfaces/datos-ingreso';
 import { Departamento } from '../interfaces/departamento';
@@ -101,6 +102,32 @@ export class CyadService {
 
   public deleteDatosIngreso(id: number){
     return this.http.delete<DatosIngreso>(this.baseUrl+`/datosIngreso/?id=${id}`);
+  }
+
+  //REST Correos
+  public getAllCorreos():Observable<any>{
+    return this.http.get( this.baseUrl + '/correos');
+  }
+
+  public getCorreosAlumno(index : number){
+    return this.http.get<any>( this.baseUrl + `/correos-alumno/${index}`);
+  }
+
+  public postCorreo(correo: any){
+    return this.http.post<Correo>(this.baseUrl+'/correo',correo);
+  }
+
+  public putCorreo(correo: any){
+    return this.http.put<Correo>(this.baseUrl+`/correoUpdate`,correo);
+  }
+
+  public deleteCorreo(id: number){
+    return this.http.delete<Correo>(this.baseUrl+`/correo/?id=${id}`);
+  }
+
+  public deleteCorreoCoincidir( correo : string, tipo : string, id : number){
+    console.log('data ',correo, tipo)
+    return this.http.delete<Correo>(this.baseUrl+`/correo-coincidir?correo=${correo}&tipo=${tipo}&id=${id}`);
   }
   
   //REST Profesor
@@ -479,16 +506,20 @@ export class CyadService {
     return this.http.get<Direccion>(this.baseUrl + `/direccion-alumno/${index}` );
   }
 
-  public postDireccion(direc: Direccion) {
+  public postDireccion(direc: any) {
     return this.http.post<Direccion>(this.baseUrl + '/direccion', direc);
   }
 
-  public putDireccion(direc: Direccion) {
+  public putDireccion(direc: any) {
     return this.http.put<Direccion>(this.baseUrl + `/direccionUpdate/`, direc);
   }
 
   public deleteDireccion(id: number) {
     return this.http.delete<Direccion>(this.baseUrl + `/direccion?id=${id}`);
+  }
+
+  public deleteDireccionCoincidir(calle : string,numero : number, id: number) {
+    return this.http.delete<Direccion>(this.baseUrl + `/direccion-coincidir?calle=${calle}&numero=${numero}&id=${id}`);
   }
 
   //REST Aspirantes

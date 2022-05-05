@@ -27,7 +27,9 @@ export class AlumnoDetailComponent implements OnInit {
   actionBtn: string = 'Guardar';
 
   /**Grupo de formulario */
-  areaForm!: FormGroup;
+  areaForm !: FormGroup;
+  correoFormGroup !: FormGroup;
+  direccionFormGroup !: FormGroup;
 
   //tabla adeudos
   displayedColumns: String[] = ['id','documento','tipo','activo'];
@@ -43,7 +45,9 @@ export class AlumnoDetailComponent implements OnInit {
   /**Datos de alumno */
   alumno !: Alumno;
   correosList !: Correo[];
+  new_correo !: Correo;
   direccionesList !: Direccion[];
+  new_direccion !: Direccion;
 
   @ViewChild(MatAccordion)
   accordion: MatAccordion = new MatAccordion;
@@ -144,14 +148,24 @@ export class AlumnoDetailComponent implements OnInit {
   }
 
   agregarCorreo(){
-    const correoFormGroup = this.formBuilder.group({
+    this.correoFormGroup = this.formBuilder.group({
       correo: ['', Validators.required],
       tipo: ['', Validators.required]
     });
-    this.correos.push(correoFormGroup);
+    this.correos.push(this.correoFormGroup);
   }
 
   removerCorreo(indice : number){
+    
+    console.log('correo a eliminar ',this.correos.at(indice).value);
+    
+    /**llamada a servicio */
+    this.cyadService.deleteCorreoCoincidir(this.correos.at(indice).value.correo, this.correos.at(indice).value.tipo, this.alumno.id).subscribe({
+      next:(res)=>{
+        console.log('se elimino un correo', res);
+      }
+    });
+    /** se eliminan input del formulario */
     this.correos.removeAt(indice);
   }
 
@@ -165,18 +179,26 @@ export class AlumnoDetailComponent implements OnInit {
   }
 
   agregarDireccion(){
-    const direccionFormGroup = this.formBuilder.group({
+    this.direccionFormGroup = this.formBuilder.group({
       calle : ['', Validators.required],
       numero : ['', Validators.required],
       colonia : ['', Validators.required],
-      alcaldia : ['', Validators.required],
+      delegacion_municipio : ['', Validators.required],
       cp : ['', Validators.required],
       ciudad : ['', Validators.required]
     });
-    this.direcciones.push(direccionFormGroup);
+    this.direcciones.push(this.direccionFormGroup);
   }
 
   removerDireccion(indice : number){
+    console.log('direccion a eliminar ',this.direcciones.at(indice).value);
+    
+    /**llamada a servicio */
+    this.cyadService.deleteDireccionCoincidir(this.direcciones.at(indice).value.calle, this.direcciones.at(indice).value.numero, this.alumno.id).subscribe({
+      next:(res)=>{
+        console.log('se elimino un correo', res);
+      }
+    });
     this.direcciones.removeAt(indice);
   }
 
@@ -190,12 +212,38 @@ export class AlumnoDetailComponent implements OnInit {
         next: (res) => {
           this.alumno = res;
           this.setData(this.alumno);
+          this.setCorreos(this.alumno);
+          this.setDirecciones(this.alumno);
         },
         error: (err) => {
           console.error(err);
         }
       }
     );
+  }
+
+  setCorreos(alumno : Alumno){
+    if(alumno.correos){
+      alumno.correos.forEach(Correo =>{
+        this.agregarCorreo();
+        this.correoFormGroup.controls['correo'].setValue(Correo.correo);
+        this.correoFormGroup.controls['tipo'].setValue(Correo.tipo);
+      });
+    }
+  }
+
+  setDirecciones(alumno : Alumno){
+    if(alumno.direcciones){
+      alumno.direcciones.forEach(Direccion =>{
+        this.agregarDireccion();
+        this.direccionFormGroup.controls['calle'].setValue(Direccion.calle);
+        this.direccionFormGroup.controls['numero'].setValue(Direccion.numero);
+        this.direccionFormGroup.controls['colonia'].setValue(Direccion.colonia);
+        this.direccionFormGroup.controls['delegacion_municipio'].setValue(Direccion.delegacion_municipio);
+        this.direccionFormGroup.controls['cp'].setValue(Direccion.cp);
+        this.direccionFormGroup.controls['ciudad'].setValue(Direccion.ciudad);
+      });
+    }
   }
 
   setData(alumno : Alumno){
@@ -261,9 +309,8 @@ export class AlumnoDetailComponent implements OnInit {
       if (this.areaForm.valid) {//add
         let newAlumno;
         /**recuperando datos del formulario */
+
         newAlumno = {
-          direcciones: this.direccionesList,
-          correos: this.correosList,
           nombre: this.areaForm.controls['nombre'].value,
           ap_paterno: this.areaForm.controls['ap_paterno'].value,
           ap_materno: this.areaForm.controls['ap_materno'].value,
@@ -283,7 +330,45 @@ export class AlumnoDetailComponent implements OnInit {
         this.cyadService.postAlumno(newAlumno).subscribe({
           next:(res)=>{
             if(res > 0)
-              alert('alumno regitsrado');
+              alert('alumno registrado');
+              /**Agregando correos */
+              for(let item  of this.correos.controls){
+                let correo;
+                correo = {
+                  correo : this.correoFormGroup.controls['correo'].value,
+                  tipo : this.correoFormGroup.controls['tipo'].value,
+                  alumno : {
+                    id : res
+                  }
+                }
+                this.cyadService.postCorreo(correo).subscribe({
+                  next:(res)=>{
+                    console.log('nuevo correo ',res);
+                  }
+                });
+              }//for correos
+
+              /**Agregando direcciones */
+              for(let item  of this.direcciones.controls){
+                let direccion;
+                direccion = {
+                  calle : this.direccionFormGroup.controls['calle'].value,
+                  numero : this.direccionFormGroup.controls['numero'].value,
+                  colonia : this.direccionFormGroup.controls['colonia'].value,
+                  delegacion_municipio : this.direccionFormGroup.controls['delegacion_municipio'].value,
+                  cp : this.direccionFormGroup.controls['cp'].value,
+                  ciudad : this.direccionFormGroup.controls['ciudad'].value,
+                  alumno : {
+                    id : res
+                  }
+                }
+                this.cyadService.postDireccion(direccion).subscribe({
+                  next:(res)=>{
+                    console.log('nuevo direccion ',res);
+                  }
+                });
+              }//for direcciones
+
               /**Creacion de registro con datos academicos */
               let datos_academicos;
               datos_academicos = {
@@ -351,10 +436,15 @@ export class AlumnoDetailComponent implements OnInit {
   }
 
   updateAlumno() {
-    
+    /**Obteniendo correos */
+    this.correosList = this.alumno.correos;
+    this.updateCorreos();
+
+    /**Obteniendo direcciones */
+    this.direccionesList = this.alumno.direcciones;
+    this.updateDirecciones();
+
     /**Tomando datos del form */
-    this.alumno.direcciones = this.direccionesList;
-    this.alumno.correos = this.correosList;
     this.alumno.nombre = this.areaForm.controls['nombre'].value;
     this.alumno.ap_paterno = this.areaForm.controls['ap_paterno'].value;
     this.alumno.ap_materno = this.areaForm.controls['ap_materno'].value;
@@ -437,6 +527,78 @@ export class AlumnoDetailComponent implements OnInit {
     });
 
     this.router.navigateByUrl('alumnos');
+  }
+
+  updateCorreos(){
+    for(let correo_formulario of this.correos.controls){
+      /**validando si existe en bd*/
+      let existe_correo = this.existCorreo(correo_formulario);
+      if(!existe_correo){
+        let new_correo;
+        new_correo = {
+          correo : this.correoFormGroup.controls['correo'].value,
+          tipo : this.correoFormGroup.controls['tipo'].value,
+          alumno:{
+            id : this.alumno.id
+          }
+        }
+        /**llamada al servicio */
+        this.cyadService.postCorreo(new_correo).subscribe({
+          next:(res)=>{
+            console.log('se registro nuevo correo ',res);
+          }
+        });
+      }//if
+    }//for
+  }
+
+  existCorreo(correo_formulario : any): boolean {
+    let flag = false;
+    for (let correo_bd of this.correosList) {
+      if (correo_formulario.value.correo == correo_bd.correo && correo_formulario.value.tipo == correo_bd.tipo) {
+        flag = true;
+        break;
+      }
+    }
+    return flag;
+  }
+
+  updateDirecciones(){
+    for(let direccion_formulario of this.direcciones.controls){
+      /**validando si existe en bd*/
+      let existe_direccion = this.existDireccion(direccion_formulario);
+      if(!existe_direccion){
+        let new_direccion;
+        new_direccion = {
+          calle: this.direccionFormGroup.controls['calle'].value,
+          numero: this.direccionFormGroup.controls['numero'].value,
+          colonia: this.direccionFormGroup.controls['colonia'].value,
+          delegacion_municipio: this.direccionFormGroup.controls['delegacion_municipio'].value,
+          cp: this.direccionFormGroup.controls['cp'].value,
+          ciudad: this.direccionFormGroup.controls['ciudad'].value,
+          alumno: {
+            id: this.alumno.id
+          }
+        }
+        /**llamada al servicio */
+        this.cyadService.postDireccion(new_direccion).subscribe({
+          next:(res)=>{
+            console.log('se registro nueva direccion ',res);
+          }
+        });
+      }//if
+    }//for
+  }
+
+  existDireccion(direccion_formulario : any) : boolean{
+    let flag = false;
+    for (let direccion_bd of this.direccionesList) {
+      if (direccion_formulario.value.calle == direccion_bd.calle && direccion_formulario.value.numero == direccion_bd.numero) {
+        flag = true;
+        break;
+      }
+    }
+    return flag;
   }
 
   cancelar(){
