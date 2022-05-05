@@ -17,11 +17,13 @@ export class ProyectoRegisterComponent implements OnInit {
   /**listas */
   listProfesores !: Profesor[];
   listTiposProyecto !: TipoProyecto[];
+  listAlumnos !: any[];
 
   constructor(private cyadService: CyadService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.firstFormGroup = this.formBuilder.group({
+      alumno : ['', Validators.required], 
       tipo : ['', Validators.required],
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required],
@@ -45,6 +47,12 @@ export class ProyectoRegisterComponent implements OnInit {
     this.cyadService.getTiposProyectos().subscribe({
       next:(res)=>{
         this.listTiposProyecto = res;
+      }
+    });
+
+    this.cyadService.getAlumnos().subscribe({
+      next:(res)=>{
+        this.listAlumnos = res;
       }
     });
   }
@@ -83,6 +91,9 @@ export class ProyectoRegisterComponent implements OnInit {
 
         /**Registrando el proyecto */
         proyecto = {
+          alumno: {
+            id : this.firstFormGroup.controls['alumno'].value
+          },
           titulo: this.firstFormGroup.controls['titulo'].value,
           descripcion: this.firstFormGroup.controls['descripcion'].value,
           fecha_inicio: this.firstFormGroup.controls['fecha_inicio'].value,

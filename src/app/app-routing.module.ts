@@ -7,7 +7,6 @@ import { AlumnoDetailComponent } from './components/alumno-detail/alumno-detail.
 import { ProfesorDetailComponent } from './components/profesor-detail/profesor-detail.component';
 import { ProduccionesTableComponent } from './components/producciones-table/producciones-table.component';
 import { AreaConcentracionTableComponent } from './components/area-concentracion-table/area-concentracion-table.component';
-import { AreaConcentracionDetailComponent } from './components/area-concentracion-detail/area-concentracion-detail.component';
 import { AreaInvestigacionTableComponent } from './components/area-investigacion-table/area-investigacion-table.component';
 import { DepartamentoTableComponent } from './components/departamento-table/departamento-table.component';
 import { DivisionTableComponent } from './components/division-table/division-table.component';
@@ -26,8 +25,9 @@ import { TipoProduccionTableComponent } from './components/tipo-produccion-table
 import { AutorTableComponent } from './components/autor-table/autor-table.component';
 import { TipoProyectoTableComponent } from './components/tipo-proyecto-table/tipo-proyecto-table.component';
 import { ProyectoRegisterComponent } from './components/proyecto-register/proyecto-register.component';
-import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { TipoClaveTableComponent } from './components/tipo-clave-table/tipo-clave-table.component';
+import { TrimestresTableComponent } from './components/trimestres-table/trimestres-table.component';
 
 
 const routes: Routes = [
@@ -60,6 +60,8 @@ const routes: Routes = [
   {path:'orden-autores',component: OrdenAutorTableComponent},
   {path:'tipo-produccion',component: TipoProduccionTableComponent},
   {path:'tipo-proyecto',component: TipoProyectoTableComponent},
+  {path:'tipo-claves',component: TipoClaveTableComponent},
+  {path:'trimestres',component: TrimestresTableComponent},
   {path: '',pathMatch:'full',redirectTo:'home'},
   {path: '**',pathMatch:'full',redirectTo:'home'}
 ];

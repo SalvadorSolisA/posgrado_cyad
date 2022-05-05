@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+    <form  [formGroup]="areaForm" >
+        <mat-form-field  form appearance="fill">
+            <mat-label>Id</mat-label>
+            <input hidden matInput formControlName="id" placeholder="ID"/>
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Fecha Inicio</mat-label>
+            <input type="date" matInput placeholder="2022/01/10" formControlName="fecha_inicio">
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Fecha Fin</mat-label>
+            <input type="date" matInput placeholder="2022/01/10" formControlName="fecha_fin">
+        </mat-form-field>
+        <mat-form-field form appearance="fill">
+            <mat-label>Trimestre</mat-label>
+            <input formControlName="trimestre" matInput placeholder="22-I" />
+            <mat-icon matSuffix>school</mat-icon>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
+    <button mat-raised-button color="primary" mat-dialog-close (click)="addTrimestre()">{{actionBtn}}</button>
+</div>

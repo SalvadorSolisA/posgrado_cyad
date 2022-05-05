@@ -7,6 +7,8 @@ import { AreaConcentracion } from '../interfaces/area-concentracion';
 import { AreaInvestigacion } from '../interfaces/areaInvestiongacion';
 import { Aspirante } from '../interfaces/aspirante';
 import { Autor } from '../interfaces/autor';
+import { DatosAcademicos } from '../interfaces/datos-academicos';
+import { DatosIngreso } from '../interfaces/datos-ingreso';
 import { Departamento } from '../interfaces/departamento';
 import { Direccion } from '../interfaces/direccion';
 import { Division } from '../interfaces/division';
@@ -25,6 +27,7 @@ import { Proyecto } from '../interfaces/proyecto';
 import { TipoClaveAutor } from '../interfaces/tipo-clave-autor';
 import { TipoProduccion } from '../interfaces/tipo-produccion';
 import { TipoProyecto } from '../interfaces/tipo-proyecto';
+import { Trimestre } from '../interfaces/trimestre';
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +50,7 @@ export class CyadService {
   }
 
   public postAlumno(alumn: any){
-    console.log('data enviada: ', alumn);
-    return this.http.post<Alumno>(this.baseUrl+'/alumno',alumn);
+    return this.http.post<number>(this.baseUrl+'/alumno',alumn);
   }
 
   public putAlumno(alumn: Alumno){
@@ -59,6 +61,47 @@ export class CyadService {
     return this.http.delete<Alumno>(this.baseUrl+`/alumno/?id=${id}`);
   }
 
+  //REST Datos academicos
+  public getAllDatosAcademicos():Observable<any>{
+    return this.http.get( this.baseUrl + '/datos');
+  }
+
+  public getDatosAcademicos(index : number){
+    return this.http.get<any>( this.baseUrl + `/datos/${index}`);
+  }
+
+  public postDatosAcademicos(datos: any){
+    return this.http.post<DatosAcademicos>(this.baseUrl+'/dato',datos);
+  }
+
+  public putDatosAcademicos(datos: any){
+    return this.http.put<DatosAcademicos>(this.baseUrl+`/datoUpdate`,datos);
+  }
+
+  public deleteDatosAcademicos(id: number){
+    return this.http.delete<DatosAcademicos>(this.baseUrl+`/dato/?id=${id}`);
+  }
+
+  //REST Datos de ingreso
+  public getAllDatosIngreso():Observable<any>{
+    return this.http.get( this.baseUrl + '/datosIngresos');
+  }
+
+  public getDatosIngreso(index : number){
+    return this.http.get<any>( this.baseUrl + `/datosIngreso/${index}`);
+  }
+
+  public postDatosIngreso(datos: any){
+    return this.http.post<DatosIngreso>(this.baseUrl+'/datosIngreso',datos);
+  }
+
+  public putDatosIngreso(datos: any){
+    return this.http.put<DatosIngreso>(this.baseUrl+`/datosIngresoUpdate`,datos);
+  }
+
+  public deleteDatosIngreso(id: number){
+    return this.http.delete<DatosIngreso>(this.baseUrl+`/datosIngreso/?id=${id}`);
+  }
   
   //REST Profesor
   public getProfesores():Observable<any>{
@@ -69,11 +112,11 @@ export class CyadService {
     return this.http.get<any>( this.baseUrl + `/profesor/${index}`);
   }
 
-  public postProfesor(profe: Profesor){
+  public postProfesor(profe: any){
     return this.http.post<Profesor>(this.baseUrl+'/profesor',profe);
   }
 
-  public putProfesor(profe: Profesor){
+  public putProfesor(profe: any){
     return this.http.put<Profesor>(this.baseUrl+`/profesorUpdate`,profe);
   }
 
@@ -503,7 +546,6 @@ export class CyadService {
   }
 
   public postGruposAutores(g_autor: any) {
-    console.log('data enviada  a grupo autores',g_autor);
     return this.http.post<GrupoAutores>(this.baseUrl + '/grupoAutores', g_autor);
   }
 
@@ -557,6 +599,28 @@ export class CyadService {
 
   public deleteTipoClaveAutor(id: number) {
     return this.http.delete<TipoClaveAutor>(this.baseUrl + `/tipoClaveAutor?id=${id}`);
+  }
+
+  //REST trimestres
+
+  public getTrimestres(): Observable<any> {
+    return this.http.get<Trimestre>(this.baseUrl + '/trimestres');
+  }
+
+  public getTrimestre(index: number) {
+    return this.http.get<Trimestre>(this.baseUrl + `/trimestre/${index}`);
+  }
+
+  public postTrimestre(trimestre: any) {
+    return this.http.post<Trimestre>(this.baseUrl + '/trimestre', trimestre);
+  }
+
+  public putTrimestre(trimestre: any) {
+    return this.http.put<Trimestre>(this.baseUrl + `/trimestreUpdate/`, trimestre);
+  }
+
+  public deleteTrimestre(id: number) {
+    return this.http.delete<Trimestre>(this.baseUrl + `/trimestre?id=${id}`);
   }
 
   //REST tipo produccion

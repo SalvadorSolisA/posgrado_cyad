@@ -3,7 +3,7 @@
     <form  [formGroup]="areaForm" >
         <mat-form-field  form appearance="fill">
             <mat-label>Id</mat-label>
-            <input matInput formControlName="id" placeholder="ID"/>
+            <input hidden matInput formControlName="id" placeholder="ID"/>
             <mat-icon matSuffix>school</mat-icon>
         </mat-form-field>
         <mat-form-field form appearance="fill">
@@ -33,22 +33,30 @@
         </mat-form-field>
         <mat-form-field form appearance="fill">
             <mat-label>Institución de procedencia</mat-label>
-            <input formControlName="institucion" matInput placeholder="Institución" />
+            <mat-select formControlName="institucion">
+                <mat-option *ngFor="let inst of listInstituciones" [value]="inst.id">{{inst.institucion}}</mat-option>
+            </mat-select>
             <mat-icon matSuffix>school</mat-icon>
         </mat-form-field>
         <mat-form-field form appearance="fill">
             <mat-label>Divsión</mat-label>
-            <input formControlName="division" matInput placeholder="Division" />
+            <mat-select formControlName="division">
+                <mat-option *ngFor="let div of listDivisiones" [value]="div.id">{{div.division}}</mat-option>
+            </mat-select>
             <mat-icon matSuffix>school</mat-icon>
         </mat-form-field>
         <mat-form-field form appearance="fill">
             <mat-label>Departamento</mat-label>
-            <input formControlName="departamento" matInput placeholder="Departamento" />
+            <mat-select formControlName="departamento">
+                <mat-option *ngFor="let depto of listDepartamentos" [value]="depto.id">{{depto.departamento}}</mat-option>
+            </mat-select>
             <mat-icon matSuffix>school</mat-icon>
         </mat-form-field>
         <mat-form-field form appearance="fill">
             <mat-label>Área de investigación</mat-label>
-            <input formControlName="area_investigacion" matInput placeholder="Área de investigación" />
+            <mat-select formControlName="area_investigacion">
+                <mat-option *ngFor="let area of listAreasInvestigacion" [value]="area.id">{{area.area_investigacion}}</mat-option>
+            </mat-select>
             <mat-icon matSuffix>school</mat-icon>
         </mat-form-field>
     </form>

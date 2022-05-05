@@ -3,6 +3,14 @@
         <mat-step [stepControl]="firstFormGroup" errorMessage="Campos vacios.">
             <form [formGroup]="firstFormGroup">
                 <ng-template matStepLabel>Datos del proyecto</ng-template>
+                <!--Campo alumno-->
+                <mat-form-field appearance="outline" required>
+                    <mat-label>Alumno</mat-label>
+                    <mat-select formControlName="alumno">
+                        <mat-option *ngFor="let alumno of listAlumnos" [value]="alumno.id">{{alumno.nombre}}&nbsp;{{alumno.ap_paterno}}&nbsp;{{alumno.ap_materno}}</mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix>edit</mat-icon>
+                </mat-form-field>                
                 <!--Campo tipo-->
                 <mat-form-field appearance="outline" required>
                     <mat-label>Tipo</mat-label>

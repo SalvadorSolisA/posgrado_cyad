@@ -7,4 +7,5 @@ export interface DatosIngreso{
     nivelStudios: string
     activo: boolean;
     adeudos: Adeudo[];
+    id_alumno_datos_ingreso : number;
 }

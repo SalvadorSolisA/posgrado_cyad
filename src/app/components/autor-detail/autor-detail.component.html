@@ -12,7 +12,7 @@
             <mat-icon matSuffix>school</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="fill" required>
-            <mat-label>Tipo</mat-label>
+            <mat-label>Tipo de clave</mat-label>
             <mat-select formControlName="tipo_clave">
                 <mat-option *ngFor="let tipo of listTipoClave" [value]="tipo.id">{{tipo.tipo}}</mat-option>
             </mat-select>

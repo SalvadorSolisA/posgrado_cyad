@@ -13,7 +13,7 @@ export interface Alumno {
     rfc: string;
     cvu: number;
     orcid : string;
-    fecha_nacimiento : string;
+    fecha_nacimiento : Date;
     edad : number;
     genero : string;
     telefono : string;

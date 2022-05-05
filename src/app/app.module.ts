@@ -74,6 +74,10 @@ import { HomeComponent } from './components/home/home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { DatamartAlumnosTableComponent } from './components/datamart-alumnos-table/datamart-alumnos-table.component';
 import { DatamartHistorialTableComponent } from './components/datamart-historial-table/datamart-historial-table.component';
+import { TipoClaveTableComponent } from './components/tipo-clave-table/tipo-clave-table.component';
+import { TipoClaveDetailComponent } from './components/tipo-clave-detail/tipo-clave-detail.component';
+import { TrimestresTableComponent } from './components/trimestres-table/trimestres-table.component';
+import { TrimestresDetailComponent } from './components/trimestres-detail/trimestres-detail.component';
 
 
 @NgModule({
@@ -125,6 +129,10 @@ import { DatamartHistorialTableComponent } from './components/datamart-historial
     HomeComponent,
     DatamartAlumnosTableComponent,
     DatamartHistorialTableComponent,
+    TipoClaveTableComponent,
+    TipoClaveDetailComponent,
+    TrimestresTableComponent,
+    TrimestresDetailComponent,
   ],
   imports: [
     BrowserModule,

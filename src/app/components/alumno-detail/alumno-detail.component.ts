@@ -11,6 +11,7 @@ import { Correo } from 'src/app/interfaces/correo';
 import { Direccion } from 'src/app/interfaces/direccion';
 import { EstadoAcademico } from 'src/app/interfaces/estado-academico';
 import { Nivel } from 'src/app/interfaces/nivel';
+import { PlanEstudios } from 'src/app/interfaces/plan-estudios';
 import { CyadService } from 'src/app/service/cyad.service';
 
 @Component({
@@ -37,9 +38,10 @@ export class AlumnoDetailComponent implements OnInit {
   listEstados!: EstadoAcademico[];
   listAreaConcentracion !: AreaConcentracion[];
   listNiveles !: Nivel[];
+  listPlanes !: PlanEstudios[];
 
   /**Datos de alumno */
-  alumno!: Alumno;
+  alumno !: Alumno;
   correosList !: Correo[];
   direccionesList !: Direccion[];
 
@@ -61,34 +63,41 @@ export class AlumnoDetailComponent implements OnInit {
     /*Agregando validaciones a los input*/
     this.areaForm = this.formBuilder.group({
       nombre : ['', Validators.required],
-      ap_paterno : ['', Validators.nullValidator],
-      ap_materno : ['', Validators.nullValidator],
-      genero : ['', Validators.nullValidator],
-      edad : ['', Validators.nullValidator],
+      ap_paterno : ['', Validators.required],
+      ap_materno : ['', Validators.required],
+      genero : ['', Validators.required],
+      edad : ['', Validators.required],
       fecha_nacimiento : ['', Validators.nullValidator],
       nacionalidad : ['', Validators.nullValidator],
       curp : ['', Validators.nullValidator],
       rfc : ['', Validators.nullValidator],
-      matricula : ['', Validators.nullValidator],
+      matricula : ['', Validators.required],
       orcid : ['', Validators.nullValidator],
       cvu : ['', Validators.nullValidator],
       telefono : ['', Validators.nullValidator],
       correos : this.formBuilder.array([]),
-      area_concentracion : ['', Validators.nullValidator],
-      estado_academico : ['', Validators.nullValidator],
+      direcciones : this.formBuilder.array([]),
+      area_concentracion : ['', Validators.required],
+      estado_academico : ['', Validators.required],
       clave_plan : ['', Validators.nullValidator],
-      nivel : ['', Validators.nullValidator],
-      dedicacion : ['', Validators.nullValidator],
+      nivel : ['', Validators.required],
+      dedicacion : ['', Validators.required],
       anio_ingreso : ['', Validators.nullValidator],
-      creditos_cubiertos : ['', Validators.nullValidator],
-      creditos_acumulados : ['', Validators.nullValidator],
-      trimestre_ingreso : ['', Validators.nullValidator],
+      creditos_cubiertos : ['', Validators.required],
+      creditos_acumulados : ['', Validators.required],
+      trimestre_ingreso : ['', Validators.required],
       ultimo_trimestre_inscrito : ['', Validators.nullValidator],
       num_trimestres : ['', Validators.nullValidator],
-      promedio : ['', Validators.nullValidator],
-      escuela_procedencia : ['', Validators.nullValidator],
+      promedio : ['', Validators.required],
+      escuela_procedencia : ['', Validators.required],
       datos_ingreso_promedio : ['', Validators.nullValidator],
       datos_ingreso_nivel : ['', Validators.nullValidator],
+      
+      fecha_ingreso : ['', Validators.required],
+      fecha_egreso : ['', Validators.nullValidator],
+      fecha_titulacion : ['', Validators.nullValidator],
+      fecha_disertacion : ['', Validators.nullValidator]
+
     });
 
     /**Cargando catalogos */
@@ -118,6 +127,15 @@ export class AlumnoDetailComponent implements OnInit {
         console.error('error al cargar catalogo de niveles ', err);
       }
     });
+
+    this.cyadService.getPlanes().subscribe({
+      next:(res)=>{
+        this.listPlanes = res;
+      },
+      error: (err) => {
+        console.error('error al cargar catalogo de planes de estudio', err);
+      }
+    });
   }
 
   /**agregar campos de forma dinamica */
@@ -127,8 +145,8 @@ export class AlumnoDetailComponent implements OnInit {
 
   agregarCorreo(){
     const correoFormGroup = this.formBuilder.group({
-      correo: '',
-      tipo:''
+      correo: ['', Validators.required],
+      tipo: ['', Validators.required]
     });
     this.correos.push(correoFormGroup);
   }
@@ -139,6 +157,31 @@ export class AlumnoDetailComponent implements OnInit {
 
   refresh(){
     this.correos.controls.splice(0,this.correos.length);
+  }
+
+  /**agregar campos de forma dinamica */
+  get direcciones(){
+    return this.areaForm.get('direcciones') as FormArray;
+  }
+
+  agregarDireccion(){
+    const direccionFormGroup = this.formBuilder.group({
+      calle : ['', Validators.required],
+      numero : ['', Validators.required],
+      colonia : ['', Validators.required],
+      alcaldia : ['', Validators.required],
+      cp : ['', Validators.required],
+      ciudad : ['', Validators.required]
+    });
+    this.direcciones.push(direccionFormGroup);
+  }
+
+  removerDireccion(indice : number){
+    this.direcciones.removeAt(indice);
+  }
+
+  refresh2(){
+    this.direcciones.controls.splice(0,this.direcciones.length);
   }
 
   getAlumno(id: number) {
@@ -157,8 +200,6 @@ export class AlumnoDetailComponent implements OnInit {
 
   setData(alumno : Alumno){
     if (alumno) {
-      //this.nombreAspirante = aspirante.nombre;
-      //this.estadoAspirante = aspirante.estado.estado;
       this.actionBtn = "Actualizar";
       this.correosList = this.alumno.correos;
       this.direccionesList = this.alumno.direcciones;
@@ -178,9 +219,13 @@ export class AlumnoDetailComponent implements OnInit {
       this.areaForm.controls['telefono'].setValue(alumno.telefono);
 
       if (alumno.datos_academicos != null) {
+        if(alumno.datos_academicos.areac != null)
         this.areaForm.controls['area_concentracion'].setValue(alumno.datos_academicos.areac.id, '');
+        if(alumno.datos_academicos.estado != null)
         this.areaForm.controls['estado_academico'].setValue(alumno.datos_academicos.estado.id);
+        if(alumno.datos_academicos.plan != null)
         this.areaForm.controls['clave_plan'].setValue(alumno.datos_academicos.plan.clave);
+        if(alumno.datos_academicos.nivel != null)
         this.areaForm.controls['nivel'].setValue(alumno.datos_academicos.nivel.id);
         this.areaForm.controls['dedicacion'].setValue(alumno.datos_academicos.dedicacion);
         this.areaForm.controls['anio_ingreso'].setValue(alumno.datos_academicos.anioIngreso);
@@ -190,6 +235,10 @@ export class AlumnoDetailComponent implements OnInit {
         this.areaForm.controls['ultimo_trimestre_inscrito'].setValue(alumno.datos_academicos.ulimoTrimestreRe);
         this.areaForm.controls['num_trimestres'].setValue(alumno.datos_academicos.numTrimestres);
         this.areaForm.controls['promedio'].setValue(alumno.datos_academicos.promedio);
+        this.areaForm.controls['fecha_ingreso'].setValue(alumno.datos_academicos.fecha_ingreso);
+        this.areaForm.controls['fecha_egreso'].setValue(alumno.datos_academicos.fecha_egreso);
+        this.areaForm.controls['fecha_titulacion'].setValue(alumno.datos_academicos.fecha_titulacion);
+        this.areaForm.controls['fecha_disertacion'].setValue(alumno.datos_academicos.fecha_disertacion);
       }
       
       if (alumno.datos_ingreso) {
@@ -209,8 +258,7 @@ export class AlumnoDetailComponent implements OnInit {
 
   addAlumno(){
     if(!this.alumno){// Add | Update
-      if (this.areaForm.valid) {
-
+      if (this.areaForm.valid) {//add
         let newAlumno;
         /**recuperando datos del formulario */
         newAlumno = {
@@ -228,41 +276,67 @@ export class AlumnoDetailComponent implements OnInit {
           matricula: this.areaForm.controls['matricula'].value,
           orcid: this.areaForm.controls['orcid'].value,
           cvu: this.areaForm.controls['cvu'].value,
-          telefono: this.areaForm.controls['telefono'].value,
-          datos_ingreso: {
-            escuelaProcedencia: this.areaForm.controls['escuela_procedencia'].value,
-            promedio: this.areaForm.controls['datos_ingreso_promedio'].value,
-            nivelStudios: this.areaForm.controls['datos_ingreso_nivel'].value,
-          },
-          datos_academicos: {
-            dedicacion: this.areaForm.controls['dedicacion'].value,
-            anioIngreso: this.areaForm.controls['anio_ingreso'].value,
-            creditosCubiertos: this.areaForm.controls['creditos_cubiertos'].value,
-            creditosAcumulados: this.areaForm.controls['creditos_acumulados'].value,
-            trimestreIngreso: this.areaForm.controls['trimestre_ingreso'].value,
-            ulimoTrimestreRe: this.areaForm.controls['ultimo_trimestre_inscrito'].value,
-            numTrimestres: this.areaForm.controls['num_trimestres'].value,
-            promedio: this.areaForm.controls['promedio'].value,
-            areac: {
-              id: this.areaForm.controls['area_concentracion'].value
-            },
-            estado: {
-              id: this.areaForm.controls['estado_academico'].value
-            },
-            plan: {
-              id: this.areaForm.controls['clave_plan'].value
-            },
-            nivel: {
-              id: this.areaForm.controls['nivel'].value
-            }
-          }
+          telefono: this.areaForm.controls['telefono'].value
         }
 
         /**llamada al servicio post */ 
         this.cyadService.postAlumno(newAlumno).subscribe({
           next:(res)=>{
-            if(res)
-              alert('alumno agregado: ');
+            if(res > 0)
+              alert('alumno regitsrado');
+              /**Creacion de registro con datos academicos */
+              let datos_academicos;
+              datos_academicos = {
+                alumno : {
+                  id : res
+                },/**recuperando datos del formulario */
+                dedicacion: this.areaForm.controls['dedicacion'].value,
+                anioIngreso: this.areaForm.controls['anio_ingreso'].value,
+                creditosCubiertos: this.areaForm.controls['creditos_cubiertos'].value,
+                creditosAcumulados: this.areaForm.controls['creditos_acumulados'].value,
+                trimestreIngreso: this.areaForm.controls['trimestre_ingreso'].value,
+                ulimoTrimestreRe: this.areaForm.controls['ultimo_trimestre_inscrito'].value,
+                numTrimestres: this.areaForm.controls['num_trimestres'].value,
+                promedio: this.areaForm.controls['promedio'].value,
+                fecha_ingreso : this.areaForm.controls['fecha_ingreso'].value,
+                fecha_egreso : this.areaForm.controls['fecha_egreso'].value,
+                fecha_titulacion : this.areaForm.controls['fecha_titulacion'].value,
+                fecha_disertacion : this.areaForm.controls['fecha_disertacion'].value,
+                
+                areac: {
+                  id: this.areaForm.controls['area_concentracion'].value
+                },
+                estado: {
+                  id: this.areaForm.controls['estado_academico'].value
+                },
+                plan: {
+                  id: this.areaForm.controls['clave_plan'].value
+                },
+                nivel: {
+                  id: this.areaForm.controls['nivel'].value
+                }
+              }
+              this.cyadService.postDatosAcademicos(datos_academicos).subscribe({
+                next:(res)=>{
+                  console.log('Se crean datos academicos');
+                }
+              });
+
+              /**Creacion de registro de datos de ingreso */
+              let datos_ingreso;
+              datos_ingreso = {
+                alumno : {
+                  id : res
+                },/**recuperando datos del formulario */
+                escuelaProcedencia: this.areaForm.controls['escuela_procedencia'].value,
+                promedio: this.areaForm.controls['datos_ingreso_promedio'].value,
+                nivelStudios: this.areaForm.controls['datos_ingreso_nivel'].value,
+              }
+              this.cyadService.postDatosIngreso(datos_ingreso).subscribe({
+                next:(res)=>{
+                  console.log('Se crean datos de ingreso');
+                }
+              });
           },
           error:(err)=>{
             alert('Error al agregar alumno');
@@ -271,12 +345,12 @@ export class AlumnoDetailComponent implements OnInit {
         this.router.navigateByUrl('alumnos');
       }
     }
-    else{
-      this.updateAspirante();
+    else{//update
+      this.updateAlumno();
     }
   }
 
-  updateAspirante() {
+  updateAlumno() {
     
     /**Tomando datos del form */
     this.alumno.direcciones = this.direccionesList;
@@ -295,33 +369,74 @@ export class AlumnoDetailComponent implements OnInit {
     this.alumno.cvu = this.areaForm.controls['cvu'].value;
     this.alumno.telefono = this.areaForm.controls['telefono'].value;
     /**datos de ingreso */
-    if (this.alumno.datos_ingreso) {
-      this.alumno.datos_ingreso.escuelaProcedencia = this.areaForm.controls['escuela_procedencia'].value;
-      this.alumno.datos_ingreso.promedio = this.areaForm.controls['datos_ingreso_promedio'].value;
-      this.alumno.datos_ingreso.nivelStudios = this.areaForm.controls['datos_ingreso_nivel'].value;
+    let datos_ingreso;
+    
+    datos_ingreso = {
+      id : this.alumno.datos_ingreso.id,
+      alumno : {
+        id : this.alumno.id
+      },/**recuperando datos del formulario */
+      escuelaProcedencia: this.areaForm.controls['escuela_procedencia'].value,
+      promedio: this.areaForm.controls['datos_ingreso_promedio'].value,
+      nivelStudios: this.areaForm.controls['datos_ingreso_nivel'].value,
     }
     /**datos academicos */
-    if (this.alumno.datos_academicos) {
-      this.alumno.datos_academicos.dedicacion = this.areaForm.controls['dedicacion'].value;
-      this.alumno.datos_academicos.anioIngreso = this.areaForm.controls['anio_ingreso'].value;
-      this.alumno.datos_academicos.creditosCubiertos = this.areaForm.controls['creditos_cubiertos'].value;
-      this.alumno.datos_academicos.creditosAcumulados = this.areaForm.controls['creditos_acumulados'].value;
-      this.alumno.datos_academicos.trimestreIngreso = this.areaForm.controls['trimestre_ingreso'].value;
-      this.alumno.datos_academicos.ulimoTrimestreRe = this.areaForm.controls['ultimo_trimestre_inscrito'].value;
-      this.alumno.datos_academicos.numTrimestres = this.areaForm.controls['num_trimestres'].value;
-      this.alumno.datos_academicos.promedio = this.areaForm.controls['promedio'].value;
-      this.alumno.datos_academicos.areac.id = this.areaForm.controls['area_concentracion'].value;
-      this.alumno.datos_academicos.estado.id = this.areaForm.controls['estado_academico'].value;
-      this.alumno.datos_academicos.plan.id = this.areaForm.controls['clave_plan'].value;
-      this.alumno.datos_academicos.nivel.id = this.areaForm.controls['nivel'].value;
+    let datos_academicos;
+    datos_academicos = {
+      id : this.alumno.datos_academicos.id,
+      alumno : {
+        id : this.alumno.id
+      },/**recuperando datos del formulario */
+      dedicacion: this.areaForm.controls['dedicacion'].value,
+      anioIngreso: this.areaForm.controls['anio_ingreso'].value,
+      creditosCubiertos: this.areaForm.controls['creditos_cubiertos'].value,
+      creditosAcumulados: this.areaForm.controls['creditos_acumulados'].value,
+      trimestreIngreso: this.areaForm.controls['trimestre_ingreso'].value,
+      ulimoTrimestreRe: this.areaForm.controls['ultimo_trimestre_inscrito'].value,
+      numTrimestres: this.areaForm.controls['num_trimestres'].value,
+      promedio: this.areaForm.controls['promedio'].value,
+      fecha_ingreso : this.areaForm.controls['fecha_ingreso'].value,
+      fecha_egreso : this.areaForm.controls['fecha_egreso'].value,
+      fecha_titulacion : this.areaForm.controls['fecha_titulacion'].value,
+      fecha_disertacion : this.areaForm.controls['fecha_disertacion'].value,
+      
+      areac: {
+        id: this.areaForm.controls['area_concentracion'].value
+      },
+      estado: {
+        id: this.areaForm.controls['estado_academico'].value
+      },
+      plan: {
+        id: this.areaForm.controls['clave_plan'].value
+      },
+      nivel: {
+        id: this.areaForm.controls['nivel'].value
+      }
     }
-    /**llamada al servicio */
+    /**llamada al servicio update datos de alumno */
     this.cyadService.putAlumno(this.alumno).subscribe({
       next:(res)=>{
         if(res)
           alert('Alumno actualizado');
+      },
+      error:(err)=>{
+        console.error(err);
       }
     });
+    /**llamada al servicio update datos academicos */
+    this.cyadService.putDatosAcademicos(datos_academicos).subscribe({
+      next:(res)=>{
+        console.log('se actualizan datos academicos');
+      }
+    });
+    /**llamada al servicio update datos de ingreso */
+    this.cyadService.putDatosIngreso(datos_ingreso).subscribe({
+      next:(res)=>{
+        console.log('se actualizan datos de ingreso');
+      }
+    });
+
+    this.router.navigateByUrl('alumnos');
   }
 
   cancelar(){

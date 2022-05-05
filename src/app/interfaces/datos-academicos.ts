@@ -16,11 +16,16 @@ export interface DatosAcademicos{
 	numTrimestres: number;
 	trimestreExamen: string;
 	anioExamen: number;
-	fechaExamen: string;
-	fechaTitulacion: string;
+	fechaExamen: Date;
+	fechaTitulacion: Date;
 	activo: boolean;
 	nivel: Nivel;
 	plan: PlanEstudios;
 	areac: AreaConcentracion;
 	estado: EstadoAcademico;
+	fecha_ingreso : Date;
+    fecha_egreso : Date;
+    fecha_titulacion : Date;
+    fecha_disertacion : Date;
+	id_alumno : number;
 }
