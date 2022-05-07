@@ -25,7 +25,7 @@ export class DatamartAlumnosTableComponent implements OnInit {
   //---datos de alumno
   alumno_nombre !: String;
 
-  constructor(private cyadService :CyadService, private router : Router) { }
+  constructor(private cyadService :CyadService) { }
 
   ngOnInit(): void {
     this.getAllAlumnos();

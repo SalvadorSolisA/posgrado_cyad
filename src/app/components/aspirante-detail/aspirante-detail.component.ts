@@ -69,7 +69,6 @@ export class AspiranteDetailComponent implements OnInit {
     this.cyadService.getEstadosAspirantes().subscribe({
       next: (res) => {
         this.listEstados = res;
-        console.log('listado de estados...', res);
       },
       error: (err) => {
         console.error('error al cargar lista estados ', err);
@@ -91,7 +90,6 @@ export class AspiranteDetailComponent implements OnInit {
 
   setData(aspirante : Aspirante){
     if (aspirante) {
-      console.log('validando la data..', aspirante);
       this.nombreAspirante = aspirante.nombre;
       this.estadoAspirante = aspirante.estado.estado;
       this.actionBtn = "Actualizar";

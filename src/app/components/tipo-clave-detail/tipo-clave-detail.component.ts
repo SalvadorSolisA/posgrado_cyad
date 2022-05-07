@@ -33,7 +33,7 @@ export class TipoClaveDetailComponent implements OnInit {
     /*Al iniciar el cuadro de dialogo
     si se trata de una edición*/
     if(this.editData){
-      this.title = "Actualizar área de investigación";
+      this.title = "Actualizar tipo de clave";
       this.actionBtn = "Actualizar";
       this.areaForm.controls['id'].setValue(this.editData.id);
       this.areaForm.controls['tipo'].setValue(this.editData.tipo);

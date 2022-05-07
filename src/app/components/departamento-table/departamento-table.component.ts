@@ -31,7 +31,6 @@ export class DepartamentoTableComponent implements OnInit {
   getDepartamentos(){
     this.cyadService.getDepartamentos().subscribe({
       next:(res)=>{
-        console.log(res);
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

@@ -32,7 +32,6 @@ export class EstadoAspiranteTableComponent implements OnInit {
   getAllEstadosAspirantes(){
     this.cyadService.getEstadosAspirantes().subscribe({
       next:(res)=>{
-        console.log(res);
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

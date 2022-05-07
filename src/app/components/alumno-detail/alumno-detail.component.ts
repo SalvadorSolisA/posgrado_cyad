@@ -158,13 +158,22 @@ export class AlumnoDetailComponent implements OnInit {
   removerCorreo(indice : number){
     
     console.log('correo a eliminar ',this.correos.at(indice).value);
-    
-    /**llamada a servicio */
-    this.cyadService.deleteCorreoCoincidir(this.correos.at(indice).value.correo, this.correos.at(indice).value.tipo, this.alumno.id).subscribe({
-      next:(res)=>{
-        console.log('se elimino un correo', res);
+
+    let correo = {
+      correo : this.correos.at(indice).value.correo,
+      tipo : this.correos.at(indice).value.tipo
+    }
+
+    if(correo.correo != '' && correo.tipo != '')//validacion de campos vacios
+      if(this.existCorreo(correo)){//validacion si existe en bd
+        /**llamada a servicio */
+        this.cyadService.deleteCorreoCoincidir(correo.correo, correo.tipo, this.alumno.id).subscribe({
+          next:(res)=>{
+            console.log('se elimino un correo', res);
+          }
+        });
       }
-    });
+
     /** se eliminan input del formulario */
     this.correos.removeAt(indice);
   }
@@ -193,12 +202,22 @@ export class AlumnoDetailComponent implements OnInit {
   removerDireccion(indice : number){
     console.log('direccion a eliminar ',this.direcciones.at(indice).value);
     
-    /**llamada a servicio */
-    this.cyadService.deleteDireccionCoincidir(this.direcciones.at(indice).value.calle, this.direcciones.at(indice).value.numero, this.alumno.id).subscribe({
-      next:(res)=>{
-        console.log('se elimino un correo', res);
+    let  direccion;
+    direccion = {
+      calle : this.direcciones.at(indice).value.calle,
+      numero : this.direcciones.at(indice).value.numero
+    }
+
+    if(direccion.calle != ''  &&  direccion.numero != '')
+      if(this.existDireccion(direccion)){
+        /**llamada a servicio */
+        this.cyadService.deleteDireccionCoincidir(direccion.calle, direccion.numero, this.alumno.id).subscribe({
+          next:(res)=>{
+            console.log('se elimino un correo', res);
+          }
+        });
       }
-    });
+    
     this.direcciones.removeAt(indice);
   }
 
