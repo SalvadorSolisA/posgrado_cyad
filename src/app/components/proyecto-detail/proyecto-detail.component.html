@@ -1,109 +1,142 @@
 <div class="container">
-    <mat-stepper #stepper>
-        <mat-step [stepControl]="firstFormGroup" errorMessage="Campos vacios.">
-          <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>Datos del proyecto</ng-template>
-            <!--Campo tipo-->
-            <mat-form-field appearance="outline" required>
-                <mat-label>Tipo</mat-label>
-                <mat-select formControlName="tipo">
-                    <mat-option *ngFor="let item of listTiposProyecto" [value]="item.id">{{item.tipo}}</mat-option>
-                </mat-select>
-                <mat-icon matSuffix>edit</mat-icon>
-            </mat-form-field>
-            <!--Campo titulo-->
-            <mat-form-field class="form-field" appearance="outline">
-                <mat-label>Titulo</mat-label>
-                <input type="text" matInput placeholder="Titulo del proyecto" formControlName="titulo" required>
-                <mat-icon matSuffix>edit</mat-icon>
-            </mat-form-field>
-            <!--Campo descripcion-->
-            <mat-form-field class="form-field" appearance="outline">
-                <mat-label>Descripciòn</mat-label>
-                <textarea matInput placeholder="Escribe una breve descripciòn"  formControlName="descripcion" required></textarea>
-            </mat-form-field>
-            <!--Campo fecha inicio-->
-            <mat-form-field class="form-field" appearance="outline">
-                <mat-label>Fecha de inicio</mat-label>
-                <input type="date" matInput placeholder="2022/01/10" formControlName="fecha_inicio" required>
-            </mat-form-field>
-            <!--Campo fecha termino-->
-            <mat-form-field class="form-field" appearance="outline">
-                <mat-label>Fecha de termino (optima)</mat-label>
-                <input type="date" matInput placeholder="2022/01/10" formControlName="fecha_termino" >
-            </mat-form-field>
-            <!--Campo lgac-->
-            <mat-form-field appearance="outline" required>
-                <mat-label>LGAC</mat-label>
-                <mat-select formControlName="lgac">
-                    <mat-option value="1">LGAX</mat-option>
-                    <mat-option value="2">TRABAJO</mat-option>
-                </mat-select>
-                <mat-icon matSuffix>edit</mat-icon>
-            </mat-form-field>
-            <div>
-              <p>Ve a un step diferente para ver el error</p>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="secondFormGroup" errorMessage="Campos vacios">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Grupo protocolo</ng-template>
-            <!--Campo director-->
-            <mat-form-field appearance="outline" required>
-                <mat-label>Director</mat-label>
-                <mat-select formControlName="director">
-                    <mat-option *ngFor="let profesor of listProfesores" [value]="profesor.id">{{profesor.nombre}}</mat-option>
-                </mat-select>
-                <mat-icon matSuffix>edit</mat-icon>
-            </mat-form-field>
-            <!--Campo codirector-->
-            <mat-form-field appearance="outline" required>
-                <mat-label>Codirector</mat-label>
-                <mat-select formControlName="codirector">
-                    <mat-option *ngFor="let profesor of listProfesores" [value]="profesor.id">{{profesor.nombre}}</mat-option>
-                </mat-select>
-                <mat-icon matSuffix>edit</mat-icon>
-            </mat-form-field>
-            <!--Campo asesores-->
-            <div>
-                <button mat-raised-button (click)="agregarCorreo()" color="primary">
-                    Agregar Asesor
-                </button>
-            </div>
-            <div layout="row" layout-align="center center" formArrayName="asesores" class="" *ngFor="let asesor of asesores.controls; let i = index">
-                <div [formGroupName]="i">
-                    <mat-form-field class="form-field" appearance="outline" >
-                        <mat-label>Asesor</mat-label>
-                        <mat-select formControlName="asesor">
-                            <mat-option *ngFor="let profesor of listProfesores" [value]="profesor.id">{{profesor.nombre}}</mat-option>
-                        </mat-select>
-                        <mat-icon matSuffix>edit</mat-icon>
+    <h1 class="mat-h1">EDICIÒN DE PROYECTO</h1>
+    <div class="div-boton-guardar">
+        <button class="boton-guardar" mat-raised-button (click)="updateProyecto()" color="primary">
+            <mat-icon>save</mat-icon>
+            Actualizar
+        </button>
+    </div>
+    
+    <mat-grid-list cols="2" rowHeight="350px">
+  
+      <mat-grid-tile [colspan]=1 [rowspan]=2>
+        <mat-card class="card-datos-generales">
+          <mat-card-header>
+            <mat-card-title>Datos del proyecto</mat-card-title>
+            <mat-card-subtitle>Editar datos</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="card-datos-generales-content">
+            <form [formGroup]="firstFormGroup">            
+                <!--Campo tipo-->
+                <mat-form-field appearance="outline" required>
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="tipo">
+                        <mat-option *ngFor="let item of listTiposProyecto" [value]="item.id">{{item.tipo}}</mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix>edit</mat-icon>
+                </mat-form-field>
+                <!--Campo titulo-->
+                <mat-form-field class="form-field" appearance="outline">
+                    <mat-label>Titulo</mat-label>
+                    <input type="text" matInput placeholder="Titulo del proyecto" formControlName="titulo" required>
+                    <mat-icon matSuffix>edit</mat-icon>
+                </mat-form-field>
+                <!--Campo descripcion-->
+                <mat-form-field class="form-field" appearance="outline">
+                    <mat-label>Descripciòn</mat-label>
+                    <textarea matInput placeholder="Escribe una breve descripciòn" formControlName="descripcion"
+                        required></textarea>
+                </mat-form-field>
+                <div class="fechas">
+                    <!--Campo fecha inicio-->
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>Fecha de inicio</mat-label>
+                        <input type="date" matInput placeholder="2022/01/10" formControlName="fecha_inicio" required>
+                    </mat-form-field>
+                    <!--Campo fecha termino-->
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>Fecha de termino (optima)</mat-label>
+                        <input type="date" matInput placeholder="2022/01/10" formControlName="fecha_termino">
                     </mat-form-field>
                 </div>
-                <div>
-                    <button mat-raised-button (click)="removerAsesor(i)" color="warn">
-                        Remover
+                <!--Campo lgac-->
+                <mat-form-field appearance="outline" required>
+                    <mat-label>LGAC</mat-label>
+                    <mat-select formControlName="lgac">
+                        <mat-option value="CONFORT LUMÍNICO, HIGROTÉRMICO Y ACÚSTICO">CONFORT LUMÍNICO, HIGROTÉRMICO Y ACÚSTICO</mat-option>
+                        <mat-option value="SUSTENTABILIDAD APLICADA AL DISEÑO BIOCLIMÁTICO">SUSTENTABILIDAD APLICADA AL DISEÑO BIOCLIMÁTICO</mat-option>
+                        <mat-option value="TECNOLOGÍA Y MATERIALES APLICADOS A LA ARQUITECTURA BIOCLIMÁTICA">TECNOLOGÍA Y MATERIALES APLICADOS A LA ARQUITECTURA BIOCLIMÁTICA</mat-option>
+                        <mat-option value="CONSERVACIÓN DE PAISAJES Y JARDINES">CONSERVACIÓN DE PAISAJES Y JARDINES</mat-option>
+                        <mat-option value="DISEÑO DE PAISAJES Y JARDINES">DISEÑO DE PAISAJES Y JARDINES</mat-option>
+                        <mat-option value="PLANIFICACIÓN DEL PAISAJE">PLANIFICACIÓN DEL PAISAJE</mat-option>
+                        <mat-option value="CULTURA E IDENTIDADES URBANAS">CULTURA E IDENTIDADES URBANAS</mat-option>
+                        <mat-option value="ESPACIO Y FORMA URBANA">ESPACIO Y FORMA URBANA</mat-option>
+                        <mat-option value="HISTORIA URBANA">HISTORIA URBANA</mat-option>
+                        <mat-option value="IMPRESIÓN EN TRES DIMENSIONES">IMPRESIÓN EN TRES DIMENSIONES</mat-option>
+                        <mat-option value="SALUD Y MEJORAMIENTO EN LAS DISTINTAS DIMENSIONES DE LA VIDA">SALUD Y MEJORAMIENTO EN LAS DISTINTAS DIMENSIONES DE LA VIDA</mat-option>
+                        <mat-option value="GESTIÓN DE DISEÑO">GESTIÓN DE DISEÑO</mat-option>
+                        <mat-option value="INNOVACIÓN Y DESARROLLO SOSTENIBLE EN EL DISEÑO">INNOVACIÓN Y DESARROLLO SOSTENIBLE EN EL DISEÑO</mat-option>
+                        <mat-option value="VISUALIZACIÓN DE LA INFORMACIÓN DIGITAL">VISUALIZACIÓN DE LA INFORMACIÓN DIGITAL</mat-option>
+                        <mat-option value="DISEÑO DE LA INTERACCIÓN COGNITIVA INTELIGENTE">DISEÑO DE LA INTERACCIÓN COGNITIVA INTELIGENTE</mat-option>
+                        <mat-option value="SISTEMAS DE VISUALIZACIÓN EN INFORMACIÓN CIENTÍFICA">SISTEMAS DE VISUALIZACIÓN EN INFORMACIÓN CIENTÍFICA</mat-option>
+                        <mat-option value="ESTRATEGIAS DE GESTIÓN Y VINCULACIÓN DEL PATRIMONIO">ESTRATEGIAS DE GESTIÓN Y VINCULACIÓN DEL PATRIMONIO</mat-option>
+                        <mat-option value="PATRIMONIO, SUSTENTABILIDAD Y MEDIO AMBIENTE">PATRIMONIO, SUSTENTABILIDAD Y MEDIO AMBIENTE</mat-option>
+                        <mat-option value="REHABILITACIÓN, RECUPERACIÓN Y CONSERVACIÓN DEL PATRIMONIO CULTURAL URBANO Y ARQUITECTÓNICO">REHABILITACIÓN, RECUPERACIÓN Y CONSERVACIÓN DEL PATRIMONIO CULTURAL URBANO Y ARQUITECTÓNICO</mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix>edit</mat-icon>
+                </mat-form-field>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+  
+      <mat-grid-tile [colspan]=1 [rowspan]=2>
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>Grupo de protocolo</mat-card-title>
+            <mat-card-subtitle>Editar participantes</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+
+            <form [formGroup]="secondFormGroup">
+                <!--Campo director-->
+                <mat-form-field appearance="outline" required>
+                    <mat-label>Director</mat-label>
+                    <mat-select formControlName="director">
+                        <mat-option *ngFor="let profesor of listProfesores" [value]="profesor.id">{{profesor.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix>edit</mat-icon>
+                </mat-form-field>
+                <!--Campo codirector-->
+                <mat-form-field appearance="outline" required>
+                    <mat-label>Codirector</mat-label>
+                    <mat-select formControlName="codirector">
+                        <mat-option *ngFor="let profesor of listProfesores" [value]="profesor.id">{{profesor.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix>edit</mat-icon>
+                </mat-form-field>
+                <!--Campo asesores-->
+                <div class="button-agregar">
+                    <button mat-raised-button (click)="agregarAsesor()" color="primary">
+                        Agregar Asesor
                     </button>
                 </div>
-            </div>
-            <div>
-              <p>Ve a un step diferente para ver el error</p>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Hecho</ng-template>
-            <p>Para concluir el registro de clic en aceptar.</p>
-            <button mat-flat-button (click)="addProyecto()" color="primary">Aceptar</button>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
-          </div>
-        </mat-step>
-      </mat-stepper>
+                <div formArrayName="asesores" class="list-asesores"
+                    *ngFor="let asesor of asesores.controls; let i = index">
+                    <div class="input" [formGroupName]="i">
+                        <mat-form-field class="form-field" appearance="outline">
+                            <mat-label>Asesor</mat-label>
+                            <mat-select formControlName="asesor">
+                                <mat-option *ngFor="let profesor of listProfesores" [value]="profesor.id">
+                                    {{profesor.nombre}}</mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix>edit</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="button">
+                        <button mat-raised-button (click)="removerAsesor(i)" color="warn">
+                            Remover
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
 </div>
   

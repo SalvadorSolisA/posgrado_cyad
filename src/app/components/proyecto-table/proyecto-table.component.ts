@@ -50,18 +50,11 @@ export class ProyectoTableComponent implements OnInit {
   }
 
   registerProyecto(){
-    this.router.navigateByUrl('produccion-register');
+    this.router.navigateByUrl('proyecto-register');
   }
 
   editProyecto(row: any){
-   /* this.dialog.open(, {
-      data: row
-    }).afterClosed().subscribe(
-      val => {
-        if (val === 'update') {
-          this.getAllProfesores();
-        }
-      })*/
+    this.router.navigateByUrl('proyectoDetail/'+row.id);
   }
 
   deleteProyecto(id: number){

@@ -215,7 +215,7 @@ export class CyadService {
     return this.http.post<Proyecto>(this.baseUrl+'/proyecto',proyect);
   }
 
-  public putProyecto(proyect: Proyecto){
+  public putProyecto(proyect: any){
     return this.http.put<Proyecto>(this.baseUrl+`/proyectoUpdate`,proyect);
   }
 
@@ -261,7 +261,7 @@ export class CyadService {
     return this.http.post<GrupoProtocolo>(this.baseUrl+'/grupoProtocolo',grupo);
   }
 
-  public putGrupoProtocolo(grupo: GrupoProtocolo){
+  public putGrupoProtocolo(grupo: any){
     return this.http.put<GrupoProtocolo>(this.baseUrl+`/grupoProtocoloUpdate`,grupo);
   }
 
@@ -282,7 +282,7 @@ export class CyadService {
     return this.http.post<Participante>(this.baseUrl+'/participante',participante);
   }
 
-  public putParticipante(participante: Participante){
+  public putParticipante(participante: any){
     return this.http.put<Participante>(this.baseUrl+`/participanteUpdate`,participante);
   }
 

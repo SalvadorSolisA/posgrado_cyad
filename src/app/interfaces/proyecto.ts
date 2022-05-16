@@ -1,3 +1,4 @@
+import { GrupoProtocolo } from "./grupo-protocolo";
 import { TipoProyecto } from "./tipo-proyecto";
 
 export interface Proyecto{
@@ -9,5 +10,6 @@ export interface Proyecto{
     fecha_termino: string;
     lgac: string;
     tipo: TipoProyecto;
+    grupo : GrupoProtocolo;
     activo: boolean;
 }
