@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+*.pack
+*.old
+*.json
+.metadata/.lock
+.metadata/.log
+.metadata/.plugins/org.eclipse.core.resources/.projects/.org.eclipse.egit.core.cmp/.location
+node_modules/.bin/acorn
+*.cmd
+*.ps1
+node_modules
